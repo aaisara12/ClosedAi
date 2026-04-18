@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
 
     public float CameraRoll { get; set; }
     public float CameraHeightOffset { get; set; }
+    public float CameraLateralOffset { get; set; }
     public float BaseFOV => _fieldOfView;
 
     public void SetFOV(float fov)
@@ -123,7 +124,7 @@ public class CameraController : MonoBehaviour
     private void ApplyCameraHeight()
     {
         if (_cameraTransform == null) return;
-        Vector3 target = _baseCameraLocalPos + Vector3.up * CameraHeightOffset;
+        Vector3 target = _baseCameraLocalPos + Vector3.up * CameraHeightOffset + Vector3.right * CameraLateralOffset;
         _cameraTransform.localPosition = Vector3.Lerp(_cameraTransform.localPosition, target, _crouchCameraLerpSpeed * Time.deltaTime);
     }
 }

@@ -23,6 +23,7 @@ public class WallRunController : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _cameraRollAngle = 12f;
     [SerializeField] private float _cameraRollSpeed = 8f;
+    [SerializeField] private float _cameraWallOffset = 0.35f;
 
     public bool IsWallRunning { get; private set; }
 
@@ -32,6 +33,7 @@ public class WallRunController : MonoBehaviour
 
     private Vector3 _wallNormal;
     private float _targetRoll;
+    private float _targetLateralOffset;
 
     private void Awake()
     {
@@ -112,6 +114,7 @@ public class WallRunController : MonoBehaviour
         _rb.linearVelocity = new Vector3(v.x, 0f, v.z);
 
         _targetRoll = side * _cameraRollAngle;
+        _targetLateralOffset = -side * _cameraWallOffset;
     }
 
     private void ExitWallRun()
@@ -120,6 +123,7 @@ public class WallRunController : MonoBehaviour
         _player.CanMove = true;
         _rb.useGravity = true;
         _targetRoll = 0f;
+        _targetLateralOffset = 0f;
     }
 
     private void DoWallJump()
@@ -159,5 +163,6 @@ public class WallRunController : MonoBehaviour
     {
         if (_camera == null) return;
         _camera.CameraRoll = Mathf.Lerp(_camera.CameraRoll, _targetRoll, _cameraRollSpeed * Time.deltaTime);
+        _camera.CameraLateralOffset = Mathf.Lerp(_camera.CameraLateralOffset, _targetLateralOffset, _cameraRollSpeed * Time.deltaTime);
     }
 }
