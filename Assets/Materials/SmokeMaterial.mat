@@ -122,30 +122,36 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FresnelPower: 2
+    - _FresnelPower: 1.23
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Layer1FadeDuration: 2
     - _Layer1FadeMax: 1
-    - _Layer1FadeMin: 0.3
+    - _Layer1FadeMin: 1
+    - _Layer1FadeMode: 0
     - _Layer1FadeOffset: 0
+    - _Layer1LightningFlashWidth: 0.1
     - _Layer1ScrollX: -0.05
     - _Layer1ScrollY: 0.01
-    - _Layer1Tiling: 0.5
+    - _Layer1Tiling: 1
     - _Layer2FadeDuration: 2
     - _Layer2FadeMax: 1
-    - _Layer2FadeMin: 0.3
+    - _Layer2FadeMin: 0.7
+    - _Layer2FadeMode: 0
     - _Layer2FadeOffset: 0.333
-    - _Layer2ScrollX: 0.02
-    - _Layer2ScrollY: 0.05
-    - _Layer2Tiling: 1
-    - _Layer3FadeDuration: 1.88
+    - _Layer2LightningFlashWidth: 0.5
+    - _Layer2ScrollX: 0.01
+    - _Layer2ScrollY: 0
+    - _Layer2Tiling: 0.5
+    - _Layer3FadeDuration: 3
     - _Layer3FadeMax: 1
-    - _Layer3FadeMin: 0.3
+    - _Layer3FadeMin: 0.05
+    - _Layer3FadeMode: 1
     - _Layer3FadeOffset: 0.667
-    - _Layer3ScrollX: 0.05
-    - _Layer3ScrollY: -0.05
+    - _Layer3LightningFlashWidth: 0.1
+    - _Layer3ScrollX: 0.02
+    - _Layer3ScrollY: -0.01
     - _Layer3Tiling: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -165,9 +171,9 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0, g: 0.735849, b: 0.5549235, a: 0}
-    - _Layer1Color: {r: 0.49419582, g: 0.8, b: 0.4509804, a: 0}
-    - _Layer2Color: {r: 0, g: 1, b: 0.70202184, a: 0}
+    - _FresnelColor: {r: 0.5474355, g: 0.3448291, b: 0.5943396, a: 0}
+    - _Layer1Color: {r: 0.6603774, g: 0.4765931, b: 0.4765931, a: 0}
+    - _Layer2Color: {r: 0.8113208, g: 0.54725885, b: 0.74263227, a: 0}
     - _Layer3Color: {r: 0.6784314, g: 0, b: 0.6087997, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

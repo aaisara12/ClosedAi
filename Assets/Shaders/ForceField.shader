@@ -4,39 +4,45 @@ Shader "Custom/ForceField"
     {
         // Layer 1
         [Header(Layer 1)]
-        _Layer1Tex          ("Layer 1 Texture",       2D)    = "white" {}
-        _Layer1Tiling       ("Layer 1 Tiling",        Float) = 1.0
-        _Layer1ScrollX      ("Layer 1 Scroll X",      Float) = 0.1
-        _Layer1ScrollY      ("Layer 1 Scroll Y",      Float) = 0.2
-        _Layer1Color        ("Layer 1 Color",         Color) = (0.2, 0.6, 1.0, 1.0)
-        _Layer1FadeMin      ("Layer 1 Fade Min",      Float) = 0.3
-        _Layer1FadeMax      ("Layer 1 Fade Max",      Float) = 1.0
-        _Layer1FadeDuration ("Layer 1 Fade Duration", Float) = 2.0
-        _Layer1FadeOffset   ("Layer 1 Fade Offset",   Float) = 0.0
+        _Layer1Tex                 ("Layer 1 Texture",                        2D)    = "white" {}
+        _Layer1Tiling              ("Layer 1 Tiling",                         Float) = 1.0
+        _Layer1ScrollX             ("Layer 1 Scroll X",                       Float) = 0.1
+        _Layer1ScrollY             ("Layer 1 Scroll Y",                       Float) = 0.2
+        _Layer1Color               ("Layer 1 Color",                          Color) = (0.2, 0.6, 1.0, 1.0)
+        _Layer1FadeMin             ("Layer 1 Fade Min",                       Float) = 0.3
+        _Layer1FadeMax             ("Layer 1 Fade Max",                       Float) = 1.0
+        _Layer1FadeDuration        ("Layer 1 Fade Duration",                  Float) = 2.0
+        _Layer1FadeOffset          ("Layer 1 Fade Offset",                    Float) = 0.0
+        _Layer1FadeMode            ("Layer 1 Fade Mode (0=Sin 1=Lightning)",  Float) = 0
+        _Layer1LightningFlashWidth ("Layer 1 Lightning Flash Width",          Float) = 0.1
 
         // Layer 2
         [Header(Layer 2)]
-        _Layer2Tex          ("Layer 2 Texture",       2D)    = "white" {}
-        _Layer2Tiling       ("Layer 2 Tiling",        Float) = 1.5
-        _Layer2ScrollX      ("Layer 2 Scroll X",      Float) = -0.15
-        _Layer2ScrollY      ("Layer 2 Scroll Y",      Float) = 0.1
-        _Layer2Color        ("Layer 2 Color",         Color) = (0.1, 0.4, 0.9, 1.0)
-        _Layer2FadeMin      ("Layer 2 Fade Min",      Float) = 0.3
-        _Layer2FadeMax      ("Layer 2 Fade Max",      Float) = 1.0
-        _Layer2FadeDuration ("Layer 2 Fade Duration", Float) = 2.0
-        _Layer2FadeOffset   ("Layer 2 Fade Offset",   Float) = 0.333
+        _Layer2Tex                 ("Layer 2 Texture",                        2D)    = "white" {}
+        _Layer2Tiling              ("Layer 2 Tiling",                         Float) = 1.5
+        _Layer2ScrollX             ("Layer 2 Scroll X",                       Float) = -0.15
+        _Layer2ScrollY             ("Layer 2 Scroll Y",                       Float) = 0.1
+        _Layer2Color               ("Layer 2 Color",                          Color) = (0.1, 0.4, 0.9, 1.0)
+        _Layer2FadeMin             ("Layer 2 Fade Min",                       Float) = 0.3
+        _Layer2FadeMax             ("Layer 2 Fade Max",                       Float) = 1.0
+        _Layer2FadeDuration        ("Layer 2 Fade Duration",                  Float) = 2.0
+        _Layer2FadeOffset          ("Layer 2 Fade Offset",                    Float) = 0.333
+        _Layer2FadeMode            ("Layer 2 Fade Mode (0=Sin 1=Lightning)",  Float) = 0
+        _Layer2LightningFlashWidth ("Layer 2 Lightning Flash Width",          Float) = 0.1
 
         // Layer 3
         [Header(Layer 3)]
-        _Layer3Tex          ("Layer 3 Texture",       2D)    = "white" {}
-        _Layer3Tiling       ("Layer 3 Tiling",        Float) = 2.5
-        _Layer3ScrollX      ("Layer 3 Scroll X",      Float) = 0.05
-        _Layer3ScrollY      ("Layer 3 Scroll Y",      Float) = -0.25
-        _Layer3Color        ("Layer 3 Color",         Color) = (0.5, 0.8, 1.0, 1.0)
-        _Layer3FadeMin      ("Layer 3 Fade Min",      Float) = 0.3
-        _Layer3FadeMax      ("Layer 3 Fade Max",      Float) = 1.0
-        _Layer3FadeDuration ("Layer 3 Fade Duration", Float) = 2.0
-        _Layer3FadeOffset   ("Layer 3 Fade Offset",   Float) = 0.667
+        _Layer3Tex                 ("Layer 3 Texture",                        2D)    = "white" {}
+        _Layer3Tiling              ("Layer 3 Tiling",                         Float) = 2.5
+        _Layer3ScrollX             ("Layer 3 Scroll X",                       Float) = 0.05
+        _Layer3ScrollY             ("Layer 3 Scroll Y",                       Float) = -0.25
+        _Layer3Color               ("Layer 3 Color",                          Color) = (0.5, 0.8, 1.0, 1.0)
+        _Layer3FadeMin             ("Layer 3 Fade Min",                       Float) = 0.3
+        _Layer3FadeMax             ("Layer 3 Fade Max",                       Float) = 1.0
+        _Layer3FadeDuration        ("Layer 3 Fade Duration",                  Float) = 2.0
+        _Layer3FadeOffset          ("Layer 3 Fade Offset",                    Float) = 0.667
+        _Layer3FadeMode            ("Layer 3 Fade Mode (0=Sin 1=Lightning)",  Float) = 0
+        _Layer3LightningFlashWidth ("Layer 3 Lightning Flash Width",          Float) = 0.1
 
         // Fresnel
         [Header(Fresnel)]
@@ -91,6 +97,8 @@ Shader "Custom/ForceField"
                 float  _Layer1FadeMax;
                 float  _Layer1FadeDuration;
                 float  _Layer1FadeOffset;
+                float  _Layer1FadeMode;
+                float  _Layer1LightningFlashWidth;
 
                 float4 _Layer2Tex_ST;
                 float  _Layer2Tiling;
@@ -101,6 +109,8 @@ Shader "Custom/ForceField"
                 float  _Layer2FadeMax;
                 float  _Layer2FadeDuration;
                 float  _Layer2FadeOffset;
+                float  _Layer2FadeMode;
+                float  _Layer2LightningFlashWidth;
 
                 float4 _Layer3Tex_ST;
                 float  _Layer3Tiling;
@@ -111,6 +121,8 @@ Shader "Custom/ForceField"
                 float  _Layer3FadeMax;
                 float  _Layer3FadeDuration;
                 float  _Layer3FadeOffset;
+                float  _Layer3FadeMode;
+                float  _Layer3LightningFlashWidth;
 
                 float  _FresnelPower;
                 float4 _FresnelColor;
@@ -133,6 +145,55 @@ Shader "Custom/ForceField"
                 float3 normalWS   : TEXCOORD1;
                 float3 viewDirWS  : TEXCOORD2;
             };
+
+            // -------------------------------------------------------
+            // Fade helpers
+            // -------------------------------------------------------
+
+            // Pseudo-random float in [0,1] from a float seed.
+            float Hash(float n)
+            {
+                return frac(sin(n) * 43758.5453123);
+            }
+
+            // Smooth sin oscillation between fadeMin and fadeMax.
+            float FadeSin(float t, float duration, float offset, float fadeMin, float fadeMax)
+            {
+                return lerp(fadeMin, fadeMax, (sin((t / duration + offset) * TWO_PI) + 1.0) * 0.5);
+            }
+
+            // Abrupt lightning strike: random spike per time window that decays
+            // quadratically within flashWidth (fraction of duration, clamped 0.01..1).
+            float FadeLightning(float t, float duration, float offset,
+                                float fadeMin, float fadeMax, float flashWidth)
+            {
+                float shifted    = t + offset * duration;
+                float window     = floor(shifted / duration);
+                float windowFrac = frac(shifted / duration);
+
+                float strikeStart = Hash(window * 3.7  + 1.1);
+                float strikeEnd   = strikeStart + clamp(flashWidth, 0.01, 1.0);
+                float peakBright  = lerp(0.6, 1.0, Hash(window * 5.3 + 2.9));
+
+                float opacity = fadeMin;
+                if (windowFrac >= strikeStart && windowFrac < strikeEnd)
+                {
+                    float flashT = (windowFrac - strikeStart) / (strikeEnd - strikeStart);
+                    float bright = lerp(peakBright, 0.0, flashT * flashT);
+                    opacity = lerp(fadeMin, fadeMax, bright);
+                }
+                return opacity;
+            }
+
+            // Dispatch: mode 0 = sin, mode >= 1 = lightning.
+            float LayerFade(float t, float duration, float offset,
+                            float fadeMin, float fadeMax,
+                            float mode, float flashWidth)
+            {
+                float sinVal       = FadeSin(t, duration, offset, fadeMin, fadeMax);
+                float lightningVal = FadeLightning(t, duration, offset, fadeMin, fadeMax, flashWidth);
+                return lerp(sinVal, lightningVal, step(1.0, mode));
+            }
 
             // -------------------------------------------------------
             // Vertex
@@ -160,22 +221,28 @@ Shader "Custom/ForceField"
                 float2 baseUV = IN.uv;
 
                 // --- Layer 1 ---
-                float2 uv1     = baseUV * _Layer1Tiling + _Time.y * float2(_Layer1ScrollX, _Layer1ScrollY);
-                half4  samp1   = SAMPLE_TEXTURE2D(_Layer1Tex, sampler_Layer1Tex, uv1);
-                float  fade1   = lerp(_Layer1FadeMin, _Layer1FadeMax, (sin((_Time.y / _Layer1FadeDuration + _Layer1FadeOffset) * TWO_PI) + 1.0) * 0.5);
-                half4  layer1  = samp1 * _Layer1Color * fade1;
+                float2 uv1    = baseUV * _Layer1Tiling + _Time.y * float2(_Layer1ScrollX, _Layer1ScrollY);
+                half4  samp1  = SAMPLE_TEXTURE2D(_Layer1Tex, sampler_Layer1Tex, uv1);
+                float  fade1  = LayerFade(_Time.y, _Layer1FadeDuration, _Layer1FadeOffset,
+                                          _Layer1FadeMin, _Layer1FadeMax,
+                                          _Layer1FadeMode, _Layer1LightningFlashWidth);
+                half4  layer1 = samp1 * _Layer1Color * fade1;
 
                 // --- Layer 2 ---
-                float2 uv2     = baseUV * _Layer2Tiling + _Time.y * float2(_Layer2ScrollX, _Layer2ScrollY);
-                half4  samp2   = SAMPLE_TEXTURE2D(_Layer2Tex, sampler_Layer2Tex, uv2);
-                float  fade2   = lerp(_Layer2FadeMin, _Layer2FadeMax, (sin((_Time.y / _Layer2FadeDuration + _Layer2FadeOffset) * TWO_PI) + 1.0) * 0.5);
-                half4  layer2  = samp2 * _Layer2Color * fade2;
+                float2 uv2    = baseUV * _Layer2Tiling + _Time.y * float2(_Layer2ScrollX, _Layer2ScrollY);
+                half4  samp2  = SAMPLE_TEXTURE2D(_Layer2Tex, sampler_Layer2Tex, uv2);
+                float  fade2  = LayerFade(_Time.y, _Layer2FadeDuration, _Layer2FadeOffset,
+                                          _Layer2FadeMin, _Layer2FadeMax,
+                                          _Layer2FadeMode, _Layer2LightningFlashWidth);
+                half4  layer2 = samp2 * _Layer2Color * fade2;
 
                 // --- Layer 3 ---
-                float2 uv3     = baseUV * _Layer3Tiling + _Time.y * float2(_Layer3ScrollX, _Layer3ScrollY);
-                half4  samp3   = SAMPLE_TEXTURE2D(_Layer3Tex, sampler_Layer3Tex, uv3);
-                float  fade3   = lerp(_Layer3FadeMin, _Layer3FadeMax, (sin((_Time.y / _Layer3FadeDuration + _Layer3FadeOffset) * TWO_PI) + 1.0) * 0.5);
-                half4  layer3  = samp3 * _Layer3Color * fade3;
+                float2 uv3    = baseUV * _Layer3Tiling + _Time.y * float2(_Layer3ScrollX, _Layer3ScrollY);
+                half4  samp3  = SAMPLE_TEXTURE2D(_Layer3Tex, sampler_Layer3Tex, uv3);
+                float  fade3  = LayerFade(_Time.y, _Layer3FadeDuration, _Layer3FadeOffset,
+                                          _Layer3FadeMin, _Layer3FadeMax,
+                                          _Layer3FadeMode, _Layer3LightningFlashWidth);
+                half4  layer3 = samp3 * _Layer3Color * fade3;
 
                 // --- Composite layers ---
                 half4 composite = layer1 + layer2 + layer3;
@@ -186,7 +253,7 @@ Shader "Custom/ForceField"
                 float  fresnel   = pow(1.0 - saturate(dot(normalWS, viewDirWS)), _FresnelPower);
                 composite.rgb   += fresnel * _FresnelColor.rgb;
 
-                // Alpha drives additive brightness; keep it consistent with rgb luminance
+                // Alpha drives additive brightness
                 composite.a = saturate(composite.r + composite.g + composite.b);
 
                 return composite;
@@ -197,4 +264,3 @@ Shader "Custom/ForceField"
 
     FallBack "Hidden/Universal Render Pipeline/FallbackError"
 }
-
