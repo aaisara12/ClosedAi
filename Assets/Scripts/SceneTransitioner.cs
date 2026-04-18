@@ -78,10 +78,8 @@ public class SceneTransitioner : MonoBehaviour
         
         if (lastSceneLoaded == null)
         {
-            await loadNewSceneTask;
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-            lastSceneLoaded = sceneName;
-            return false;
+            var activeScene = SceneManager.GetActiveScene();
+            lastSceneLoaded = activeScene.name;
         }
         
         var unloadOldSceneTask = SceneManager.UnloadSceneAsync(lastSceneLoaded)?.AsTask();
