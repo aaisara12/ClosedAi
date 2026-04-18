@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 // aisara => MonoBehaviour because we may need to deal with animations or coroutines for transitions
 public class SceneTransitioner : MonoBehaviour
 {
+    public static SceneTransitioner? Instance { get; private set; }
+
     [Header("Output")] 
     [SerializeField] private LoadingScreenAnimator? loadingScreenAnimator;
     [SerializeField] private float delayBeforeTogglingLoadingScreen = 0.5f;
@@ -19,12 +21,50 @@ public class SceneTransitioner : MonoBehaviour
     private Task? ongoingSceneTransitionTask;
 
     private string? lastSceneLoaded;
-    
 
-    // aisara => Don't return bool because it's our responsibility to figure out what to do in a failed scene transition,
-    // not the caller's (for example, we could pop a UI that says scene transition failed or raise some events on our end).
-    private async Task TransitionToScene(string sceneName)
+    private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+    
+    public bool TryChangeScene(SceneReference scene)
+    {
+        if (ongoingSceneTransitionTask is { IsCompleted: false })
+        {
+            return false;
+        }
+        
+        ongoingSceneTransitionTask = TransitionToScene(scene);
+        
+        return true;
+    }
+
+    /// <summary>
+    /// Add in a scene that's not intended to replace the current scene, e.g., a UI overlay scene.
+    /// </summary>
+    /// <param name="scene"></param>
+    public void AddAuxiliaryScene(SceneReference scene)
+    {
+        var sceneName = scene.sceneName;
+        
+        var loadSceneOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        if (loadSceneOperation == null)
+        {
+            Debug.LogError($"Failed to load scene '{sceneName}'");
+        }
+    }
+    
+    private async Task<bool> TransitionToScene(SceneReference scene)
+    {
+        var sceneName = scene.sceneName;
+        
         loadingScreenAnimator?.FadeInLoadingScreen();
         await Task.Delay((int)(delayBeforeTogglingLoadingScreen * 1000));
         
@@ -33,7 +73,7 @@ public class SceneTransitioner : MonoBehaviour
         if (loadNewSceneTask == null)
         {
             Debug.LogError($"Failed to load new scene '{sceneName}'");
-            return;
+            return false;
         }
         
         if (lastSceneLoaded == null)
@@ -41,7 +81,7 @@ public class SceneTransitioner : MonoBehaviour
             await loadNewSceneTask;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
             lastSceneLoaded = sceneName;
-            return;
+            return false;
         }
         
         var unloadOldSceneTask = SceneManager.UnloadSceneAsync(lastSceneLoaded)?.AsTask();
@@ -49,7 +89,7 @@ public class SceneTransitioner : MonoBehaviour
         if (unloadOldSceneTask == null)
         {
             Debug.LogError($"Failed to unload old scene '{lastSceneLoaded}'");
-            return;
+            return false;
         }
         
         await Task.WhenAll(new Task[] { loadNewSceneTask, unloadOldSceneTask });
@@ -60,31 +100,6 @@ public class SceneTransitioner : MonoBehaviour
         await Task.Delay((int)(delayBeforeTogglingLoadingScreen * 1000));
         
         lastSceneLoaded = sceneName;
-    }
-    
-    public bool TryChangeScene(string sceneName)
-    {
-        if (ongoingSceneTransitionTask is { IsCompleted: false })
-        {
-            return false;
-        }
-        
-        ongoingSceneTransitionTask = TransitionToScene(sceneName);
-        
         return true;
-    }
-
-    /// <summary>
-    /// Add in a scene that's not intended to replace the current scene, e.g., a UI overlay scene.
-    /// </summary>
-    /// <param name="sceneName"></param>
-    public void AddAuxiliaryScene(string sceneName)
-    {
-        var loadSceneOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-
-        if (loadSceneOperation == null)
-        {
-            Debug.LogError($"Failed to load scene '{sceneName}'");
-        }
     }
 }
