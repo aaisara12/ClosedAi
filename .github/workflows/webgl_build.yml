@@ -36,3 +36,26 @@ jobs:
         with:
           name: Build
           path: build
+  deploy:
+      name: Butler Push to Itch
+      runs-on: ubuntu-latest
+      needs: build
+      steps:
+        - uses: actions/download-artifact@v4
+          with:
+            name: Build
+            path: build
+        # Upload to Itch
+        - name: Butler Push
+          uses: yeslayla/butler-publish-itchio-action@master
+          env:
+            BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+            CHANNEL: html5
+            ITCH_GAME: ${{ secrets.ITCH_GAME }}
+            ITCH_USER: ${{ secrets.ITCH_USER }}
+            PACKAGE: build
+        - name: Cleanup to avoid storage limit
+          if: always()
+          uses: geekyeggo/delete-artifact@v5
+          with:
+              name: Build
