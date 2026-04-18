@@ -61,6 +61,18 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Layer1Tex:
+        m_Texture: {fileID: 2800000, guid: 31423358a153940129f15d97037e7523, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer2Tex:
+        m_Texture: {fileID: 2800000, guid: 31423358a153940129f15d97037e7523, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Layer3Tex:
+        m_Texture: {fileID: 2800000, guid: 31423358a153940129f15d97037e7523, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 31423358a153940129f15d97037e7523, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -114,12 +126,24 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Layer1FadeDuration: 2
+    - _Layer1FadeMax: 1
+    - _Layer1FadeMin: 0.3
+    - _Layer1FadeOffset: 0
     - _Layer1ScrollX: -0.05
     - _Layer1ScrollY: 0.01
     - _Layer1Tiling: 0.5
+    - _Layer2FadeDuration: 2
+    - _Layer2FadeMax: 1
+    - _Layer2FadeMin: 0.3
+    - _Layer2FadeOffset: 0.333
     - _Layer2ScrollX: 0.02
     - _Layer2ScrollY: 0.05
     - _Layer2Tiling: 1
+    - _Layer3FadeDuration: 1.88
+    - _Layer3FadeMax: 1
+    - _Layer3FadeMin: 0.3
+    - _Layer3FadeOffset: 0.667
     - _Layer3ScrollX: 0.05
     - _Layer3ScrollY: -0.05
     - _Layer3Tiling: 1
@@ -144,7 +168,7 @@ Material:
     - _FresnelColor: {r: 0, g: 0.735849, b: 0.5549235, a: 0}
     - _Layer1Color: {r: 0.49419582, g: 0.8, b: 0.4509804, a: 0}
     - _Layer2Color: {r: 0, g: 1, b: 0.70202184, a: 0}
-    - _Layer3Color: {r: 0.121700786, g: 0.6784314, b: 0, a: 0}
+    - _Layer3Color: {r: 0.6784314, g: 0.12910074, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
