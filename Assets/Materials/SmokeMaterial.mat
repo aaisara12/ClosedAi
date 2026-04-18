@@ -70,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Layer3Tex:
-        m_Texture: {fileID: 2800000, guid: 31423358a153940129f15d97037e7523, type: 3}
+        m_Texture: {fileID: 2800000, guid: bc9d7fb88a00d4ff29f8942622fa4e13, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -168,7 +168,7 @@ Material:
     - _FresnelColor: {r: 0, g: 0.735849, b: 0.5549235, a: 0}
     - _Layer1Color: {r: 0.49419582, g: 0.8, b: 0.4509804, a: 0}
     - _Layer2Color: {r: 0, g: 1, b: 0.70202184, a: 0}
-    - _Layer3Color: {r: 0.6784314, g: 0.12910074, b: 0, a: 0}
+    - _Layer3Color: {r: 0.6784314, g: 0, b: 0.6087997, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
