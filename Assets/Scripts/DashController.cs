@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController), typeof(Rigidbody))]
@@ -12,6 +13,7 @@ public class DashController : MonoBehaviour
     [SerializeField] private LayerMask _dashMask = ~0;
     [Range(0f, 1f)]
     [SerializeField] private float _momentumRetain = 0.25f;
+    [SerializeField] private LayerMask _dashHitMask = ~0;
 
     private PlayerController _player;
     private Rigidbody _rb;
@@ -65,12 +67,22 @@ public class DashController : MonoBehaviour
 
         _rb.linearVelocity = Vector3.zero;
 
+        var hitIds = new HashSet<int>();
         float elapsed = 0f;
         while (elapsed < _dashDuration)
         {
             elapsed += Time.fixedDeltaTime;
             float t = Mathf.SmoothStep(0f, 1f, elapsed / _dashDuration);
             _rb.MovePosition(Vector3.Lerp(start, target, t));
+
+            Collider[] dashHits = Physics.OverlapSphere(transform.position, _player.ColliderRadius * 1.5f, _dashHitMask);
+            foreach (Collider col in dashHits)
+            {
+                if (col.transform.IsChildOf(transform)) continue;
+                if (!hitIds.Add(col.GetInstanceID())) continue;
+                OnDashHit(col);
+            }
+
             yield return new WaitForFixedUpdate();
         }
 
@@ -81,5 +93,10 @@ public class DashController : MonoBehaviour
         _targetFOV = _camera != null ? _camera.BaseFOV : 90f;
         _isDashing = false;
         _player.CanMove = true;
+    }
+
+    private void OnDashHit(Collider col)
+    {
+        // Add hit effects, damage, etc. here
     }
 }

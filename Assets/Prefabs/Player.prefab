@@ -189,6 +189,9 @@ GameObject:
   - component: {fileID: 103080477028506388}
   - component: {fileID: 6739094861262708144}
   - component: {fileID: 4728379034040776689}
+  - component: {fileID: 2775667952278784467}
+  - component: {fileID: 3525495563069156683}
+  - component: {fileID: 4504657917953737247}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -385,6 +388,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   _momentumRetain: 0.25
+  _dashHitMask:
+    serializedVersion: 2
+    m_Bits: 54
 --- !u!114 &2013916907947927060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,3 +571,56 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2775667952278784467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7720820149898204957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35a61f560994f54e8c72843089c2815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
+  _cameraTransform: {fileID: 5480275820197394333}
+  _range: 2
+  _radius: 0.6
+  _cooldown: 0.5
+  _hitMask:
+    serializedVersion: 2
+    m_Bits: 54
+--- !u!114 &3525495563069156683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7720820149898204957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bf6b20075534443abcb8494ad76998, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pistol
+  _cameraTransform: {fileID: 5480275820197394333}
+  _projectilePrefab: {fileID: 8556013833222930018, guid: c09885f1938a13b4ab2d57afc823fe8b, type: 3}
+  _pistolModel: {fileID: 0}
+  _projectileSpeed: 40
+  _reloadTime: 1.5
+--- !u!114 &4504657917953737247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7720820149898204957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81cfc8572dc89dc4f9c146deebe89964, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SmokeGadget
+  _cameraTransform: {fileID: 5480275820197394333}
+  _smokePrefab: {fileID: 8427272901540562664, guid: fa1e2f00628720a4684490e36a5ae58b, type: 3}
+  _throwForce: 12
+  _throwArcForce: 5
+  _cooldown: 8

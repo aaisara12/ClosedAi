@@ -28,7 +28,7 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "7018ed98-2be6-4fe3-bc87-126678741960",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -64,6 +64,24 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "a3e29140-30fe-48e8-93b2-1167f3804741",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Gadget",
+                    "type": "Button",
+                    "id": "a1a2d15f-867e-401b-b5d7-fcfa37bd95ea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Swap",
+                    "type": "Button",
+                    "id": "44ed4fbf-4742-4910-a618-fcff9fd9ae0d",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -343,6 +361,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d0f4677-bd75-421f-bebe-092766f614b4",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gadget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "25ac3be4-5778-4b1f-9200-f9e72856c369",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
