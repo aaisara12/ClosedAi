@@ -28,17 +28,30 @@ public class PlayerDetector : MonoBehaviour
 
     private bool TryDetectPlayer(out Vector3 playerPos)
     {
+        if (TryConeSweep(out playerPos)) return true;
+
+        // During confirming, also check direct LOS to the last known position
+        // so the player can't shake detection simply by stepping out of the cone
+        var brain = _agent.Brain;
+        if (brain != null && (brain.IsConfirming || brain.IsExecuting))
+            return TryDirectLOS(PlayerController.Instance.transform.position, out playerPos);
+
+        return false;
+    }
+
+    private bool TryConeSweep(out Vector3 playerPos)
+    {
         playerPos = Vector3.zero;
         Vector3 origin = _eyeTransform != null ? _eyeTransform.position : transform.position;
 
         for (int v = 0; v < _verticalRayCount; v++)
         {
-            float vt = _verticalRayCount == 1 ? 0.5f : (float)v / (_verticalRayCount - 1);
+            float vt    = _verticalRayCount == 1 ? 0.5f : (float)v / (_verticalRayCount - 1);
             float pitch = Mathf.Lerp(-_verticalAngle * 0.5f, _verticalAngle * 0.5f, vt);
 
             for (int h = 0; h < _horizontalRayCount; h++)
             {
-                float ht = _horizontalRayCount == 1 ? 0.5f : (float)h / (_horizontalRayCount - 1);
+                float ht  = _horizontalRayCount == 1 ? 0.5f : (float)h / (_horizontalRayCount - 1);
                 float yaw = Mathf.Lerp(-_horizontalAngle * 0.5f, _horizontalAngle * 0.5f, ht);
 
                 Vector3 dir = Quaternion.Euler(pitch, yaw, 0f) * transform.forward;
@@ -55,23 +68,38 @@ public class PlayerDetector : MonoBehaviour
         return false;
     }
 
+    private bool TryDirectLOS(Vector3 targetPos, out Vector3 playerPos)
+    {
+        playerPos = Vector3.zero;
+        Vector3 origin = _eyeTransform != null ? _eyeTransform.position : transform.position;
+        Vector3 dir    = targetPos - origin;
+
+        if (Physics.Raycast(origin, dir.normalized, out RaycastHit hit, _detectionRange, _sightMask)
+            && hit.collider.CompareTag("Player"))
+        {
+            playerPos = hit.collider.transform.position;
+            return true;
+        }
+
+        return false;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Vector3 origin = _eyeTransform != null ? _eyeTransform.position : transform.position;
         Gizmos.color = Color.yellow;
 
         int segments = 20;
-        float halfH = _horizontalAngle * 0.5f;
-        float halfV = _verticalAngle * 0.5f;
+        float halfH  = _horizontalAngle * 0.5f;
+        float halfV  = _verticalAngle   * 0.5f;
 
-        // Horizontal arc (top, middle, bottom)
         foreach (float pitch in new[] { -halfV, 0f, halfV })
         {
             Vector3 prev = origin + Quaternion.Euler(pitch, -halfH, 0f) * transform.forward * _detectionRange;
             Gizmos.DrawLine(origin, prev);
             for (int i = 1; i <= segments; i++)
             {
-                float yaw = Mathf.Lerp(-halfH, halfH, (float)i / segments);
+                float   yaw  = Mathf.Lerp(-halfH, halfH, (float)i / segments);
                 Vector3 next = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
                 Gizmos.DrawLine(prev, next);
                 prev = next;
@@ -79,14 +107,13 @@ public class PlayerDetector : MonoBehaviour
             Gizmos.DrawLine(origin, prev);
         }
 
-        // Vertical arcs (left, centre, right)
         foreach (float yaw in new[] { -halfH, 0f, halfH })
         {
             Vector3 prev = origin + Quaternion.Euler(-halfV, yaw, 0f) * transform.forward * _detectionRange;
             for (int i = 1; i <= segments; i++)
             {
-                float pitch = Mathf.Lerp(-halfV, halfV, (float)i / segments);
-                Vector3 next = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
+                float   pitch = Mathf.Lerp(-halfV, halfV, (float)i / segments);
+                Vector3 next  = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
                 Gizmos.DrawLine(prev, next);
                 prev = next;
             }

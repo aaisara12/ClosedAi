@@ -37,6 +37,18 @@ public class LoadingScreenAnimator : MonoBehaviour
         StartFade(1f, durationOfFadeAnimation);
     }
 
+    public System.Collections.IEnumerator FadeInLoadingScreenCoroutine()
+    {
+        if (canvasGroup == null)
+        {
+            Debug.LogError("CanvasGroup is null! Can't animate loading screen.");
+            yield break;
+        }
+
+        StartFade(1f, durationOfFadeAnimation);
+        yield return new WaitWhile(() => fadeTween != null);
+    }
+
     public void FadeOutLoadingScreen()
     {
         if (canvasGroup == null)
@@ -46,6 +58,18 @@ public class LoadingScreenAnimator : MonoBehaviour
         }
 
         StartFade(0f, durationOfFadeAnimation);
+    }
+
+    public System.Collections.IEnumerator FadeOutLoadingScreenCoroutine()
+    {
+        if (canvasGroup == null)
+        {
+            Debug.LogError("CanvasGroup is null! Can't animate loading screen.");
+            yield break;
+        }
+
+        StartFade(0f, durationOfFadeAnimation);
+        yield return new WaitWhile(() => fadeTween != null);
     }
 
     private void StartFade(float targetAlpha, float duration)

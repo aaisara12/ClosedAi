@@ -1494,8 +1494,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDetector
   _detectionRange: 15
-  _detectionAngle: 60
-  _rayCount: 7
+  _horizontalAngle: 60
+  _verticalAngle: 30
+  _horizontalRayCount: 7
+  _verticalRayCount: 3
   _checkInterval: 0.5
   _eyeTransform: {fileID: 0}
   _sightMask:
