@@ -1,6 +1,6 @@
 #nullable enable
 
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +18,7 @@ public class SceneTransitioner : MonoBehaviour
     [SerializeField] private LoadingScreenAnimator? loadingScreenAnimator;
     [SerializeField] private float delayBeforeTogglingLoadingScreen = 0.5f;
     
-    private Task? ongoingSceneTransitionTask;
+    private bool isTransitioning;
 
     private string? lastSceneLoaded;
 
@@ -35,12 +35,12 @@ public class SceneTransitioner : MonoBehaviour
     
     public bool TryChangeScene(SceneReference scene)
     {
-        if (ongoingSceneTransitionTask is { IsCompleted: false })
+        if (isTransitioning)
         {
             return false;
         }
         
-        ongoingSceneTransitionTask = TransitionToScene(scene);
+        StartCoroutine(TransitionToScene(scene));
         
         return true;
     }
@@ -61,43 +61,49 @@ public class SceneTransitioner : MonoBehaviour
         }
     }
     
-    private async Task<bool> TransitionToScene(SceneReference scene)
+    private IEnumerator TransitionToScene(SceneReference scene)
     {
+        isTransitioning = true;
+        
         var sceneName = scene.sceneName;
         
-        loadingScreenAnimator?.FadeInLoadingScreen();
-        await Task.Delay((int)(delayBeforeTogglingLoadingScreen * 1000));
+        if (loadingScreenAnimator != null)
+            yield return StartCoroutine(loadingScreenAnimator.FadeInLoadingScreenCoroutine());
+        yield return new WaitForSeconds(delayBeforeTogglingLoadingScreen);
         
-        var loadNewSceneTask = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive)?.AsTask();
-
-        if (loadNewSceneTask == null)
+        var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        if (loadOp == null)
         {
             Debug.LogError($"Failed to load new scene '{sceneName}'");
-            return false;
+            isTransitioning = false;
+            yield break;
         }
-        
+
         if (lastSceneLoaded == null)
         {
             var activeScene = SceneManager.GetActiveScene();
             lastSceneLoaded = activeScene.name;
         }
-        
-        var unloadOldSceneTask = SceneManager.UnloadSceneAsync(lastSceneLoaded)?.AsTask();
-        
-        if (unloadOldSceneTask == null)
+
+        var unloadOp = SceneManager.UnloadSceneAsync(lastSceneLoaded);
+        if (unloadOp == null)
         {
             Debug.LogError($"Failed to unload old scene '{lastSceneLoaded}'");
-            return false;
+            isTransitioning = false;
+            yield break;
         }
-        
-        await Task.WhenAll(new Task[] { loadNewSceneTask, unloadOldSceneTask });
+
+        // Both ops started simultaneously; yield sequentially to wait for both
+        yield return loadOp;
+        yield return unloadOp;
         
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         
-        loadingScreenAnimator?.FadeOutLoadingScreen();
-        await Task.Delay((int)(delayBeforeTogglingLoadingScreen * 1000));
+        if (loadingScreenAnimator != null)
+            yield return StartCoroutine(loadingScreenAnimator.FadeOutLoadingScreenCoroutine());
+        yield return new WaitForSeconds(delayBeforeTogglingLoadingScreen);
         
         lastSceneLoaded = sceneName;
-        return true;
+        isTransitioning = false;
     }
 }
