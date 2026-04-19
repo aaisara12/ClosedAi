@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Serialization;
 
-public class LoadingScreenAnimator : MonoBehaviour
+public class FadeInOutAnimator : MonoBehaviour
 {
     [SerializeField] private CanvasGroup? canvasGroup;
     private Tween? fadeTween;

@@ -4,7 +4,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(LoadingScreenAnimator))]
+[CustomEditor(typeof(FadeInOutAnimator))]
 public class LoadingScreenAnimatorEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -16,7 +16,7 @@ public class LoadingScreenAnimatorEditor : Editor
 
         EditorGUILayout.Space();
 
-        var animator = (LoadingScreenAnimator)target;
+        var animator = (FadeInOutAnimator)target;
 
         // Buttons only active in Play Mode (coroutines require runtime)
         EditorGUI.BeginDisabledGroup(!EditorApplication.isPlaying);

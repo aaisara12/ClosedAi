@@ -15,7 +15,7 @@ public class SceneTransitioner : MonoBehaviour
     public static SceneTransitioner? Instance { get; private set; }
 
     [Header("Output")] 
-    [SerializeField] private LoadingScreenAnimator? loadingScreenAnimator;
+    [SerializeField] private FadeInOutAnimator? loadingScreenAnimator;
     [SerializeField] private float delayBeforeTogglingLoadingScreen = 0.5f;
     
     private bool isTransitioning;
