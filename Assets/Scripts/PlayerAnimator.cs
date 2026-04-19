@@ -29,6 +29,7 @@ public class PlayerAnimator : MonoBehaviour
     private Vector3 _swordArmReadyPos;
     private Coroutine _swapCoroutine;
     private Coroutine _recoilCoroutine;
+    private bool _pendingReloadAnim;
 
     private void Awake()
     {
@@ -84,6 +85,16 @@ public class PlayerAnimator : MonoBehaviour
     private void HandleReloadStarted()
     {
         if (_gunAnimator == null) return;
+        if (_swapCoroutine != null)
+        {
+            _pendingReloadAnim = true;
+            return;
+        }
+        PlayReloadAnimation();
+    }
+
+    private void PlayReloadAnimation()
+    {
         _gunAnimator.SetFloat("ReloadSpeed", _reloadAnimDuration / _pistol.ReloadTime);
         _gunAnimator.Play("Reload");
     }
@@ -111,6 +122,12 @@ public class PlayerAnimator : MonoBehaviour
         }
 
         _swapCoroutine = null;
+
+        if (toGun && _pendingReloadAnim)
+        {
+            _pendingReloadAnim = false;
+            PlayReloadAnimation();
+        }
     }
 
     private IEnumerator RecoilCoroutine()

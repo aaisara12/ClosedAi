@@ -234,7 +234,7 @@ MonoBehaviour:
   _eyeTransform: {fileID: 0}
   _sightMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!114 &6456829123466489810
 MonoBehaviour:
   m_ObjectHideFlags: 0
