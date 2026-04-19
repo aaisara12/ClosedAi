@@ -3,14 +3,24 @@ using UnityEngine;
 
 public class GroupBrain : MonoBehaviour
 {
-    [SerializeField] private float _spotTimeout = 5f;
+    [Header("Confirmation")]
+    [SerializeField] private float _confirmDuration = 1.5f;
+    [SerializeField] private float _lossDuration = 3f;
+    // Should exceed PlayerDetector._checkInterval to absorb scan gaps
+    [SerializeField] private float _scanTimeout = 1.5f;
+
+    private enum State { Inactive, Confirming, Executing }
+    private State _state = State.Inactive;
 
     private readonly List<EnemyAgent> _members = new();
     private List<Strategy> _strategies = new();
-    private float _lastSpotTime;
+    private float _lastReportTime = float.NegativeInfinity;
+    private float _confirmAccumulated;
+    private float _lossAccumulated;
 
     public Vector3 LastKnownPlayerPosition { get; private set; }
-    public bool PlayerSpotted { get; private set; }
+    public bool IsConfirming => _state == State.Confirming;
+    public bool IsExecuting  => _state == State.Executing;
 
     public void AddMembers(List<EnemyAgent> agents)
     {
@@ -31,7 +41,6 @@ public class GroupBrain : MonoBehaviour
         Reassign();
     }
 
-    // Called by the connection system when this group loses a member
     public void RemoveMember(EnemyAgent agent)
     {
         if (!_members.Remove(agent)) return;
@@ -39,23 +48,51 @@ public class GroupBrain : MonoBehaviour
         Reassign();
     }
 
-    // Any member that spots the player calls this; all members are informed
+    // Called by PlayerDetector on any member that has LOS on the player
     public void ReportPlayerSpotted(Vector3 position)
     {
         LastKnownPlayerPosition = position;
-        PlayerSpotted = true;
-        _lastSpotTime = Time.time;
-        foreach (var m in _members)
-            m.OnPlayerSpotted(position);
+        _lastReportTime = Time.time;
+
+        if (_state == State.Inactive)
+        {
+            _state = State.Confirming;
+            _confirmAccumulated = 0f;
+        }
     }
 
     private void Update()
     {
-        if (PlayerSpotted && Time.time - _lastSpotTime > _spotTimeout)
-            PlayerSpotted = false;
+        bool hasLOS = Time.time - _lastReportTime < _scanTimeout;
 
-        foreach (var s in _strategies)
-            s.Tick(LastKnownPlayerPosition, PlayerSpotted);
+        switch (_state)
+        {
+            case State.Confirming:
+                // Accumulate only while LOS is held; pause (not reset) when cover is broken
+                if (hasLOS)
+                {
+                    _confirmAccumulated += Time.deltaTime;
+                    if (_confirmAccumulated >= _confirmDuration)
+                        EnterExecuting();
+                }
+                break;
+
+            case State.Executing:
+                if (hasLOS)
+                {
+                    _lossAccumulated = 0f;
+                }
+                else
+                {
+                    _lossAccumulated += Time.deltaTime;
+                    if (_lossAccumulated >= _lossDuration)
+                        EnterInactive();
+                }
+
+                foreach (var s in _strategies)
+                    s.Tick(LastKnownPlayerPosition, true);
+                break;
+        }
     }
 
     public void Dissolve()
@@ -66,6 +103,20 @@ public class GroupBrain : MonoBehaviour
         _members.Clear();
         _strategies.Clear();
         Destroy(gameObject);
+    }
+
+    private void EnterExecuting()
+    {
+        _state = State.Executing;
+        _lossAccumulated = 0f;
+        foreach (var m in _members)
+            m.OnPlayerSpotted(LastKnownPlayerPosition);
+    }
+
+    private void EnterInactive()
+    {
+        _state = State.Inactive;
+        _confirmAccumulated = 0f;
     }
 
     private void Reassign()
