@@ -2,6 +2,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -13,6 +14,8 @@ using UnityEngine.SceneManagement;
 public class SceneTransitioner : MonoBehaviour
 {
     public static SceneTransitioner? Instance { get; private set; }
+
+    [SerializeField] private UnityEvent OnSceneOpened;
 
     [Header("Output")] 
     [SerializeField] private FadeInOutAnimator? loadingScreenAnimator;
@@ -98,6 +101,8 @@ public class SceneTransitioner : MonoBehaviour
         yield return unloadOp;
         
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        
+        OnSceneOpened.Invoke();
         
         if (loadingScreenAnimator != null)
             yield return StartCoroutine(loadingScreenAnimator.FadeOutLoadingScreenCoroutine());

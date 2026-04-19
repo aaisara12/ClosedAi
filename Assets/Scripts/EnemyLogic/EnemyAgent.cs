@@ -1,24 +1,33 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public abstract class EnemyAgent : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth = 100f;
+    [Header("Patrol")]
+    [SerializeField] private float _patrolRadius = 8f;
+    [SerializeField] private float _patrolPauseDuration = 1.5f;
+    [SerializeField] private float _patrolScanDuration = 2f;
+    [SerializeField] private float _patrolScanSpeed = 60f;
 
     public abstract EnemyType Type { get; }
     public GroupBrain Brain { get; set; }
-
-    private float _health;
+    public Vector3 PatrolOrigin { get; private set; }
+    public float PatrolRadius => _patrolRadius;
+    public float PatrolPauseDuration => _patrolPauseDuration;
+    public float PatrolScanDuration => _patrolScanDuration;
+    public float PatrolScanSpeed => _patrolScanSpeed;
 
     protected virtual void Awake()
     {
-        _health = _maxHealth;
+        PatrolOrigin = transform.position;
+        GetComponent<Health>()?.OnDeath.AddListener(Die);
     }
 
-    public void TakeDamage(float amount)
-    {
-        _health -= amount;
-        if (_health <= 0f) Die();
-    }
+    // public void TakeDamage(float amount)
+    // {
+    //     _health -= amount;
+    //     if (_health <= 0f) Die();
+    // }
 
     private void Die()
     {

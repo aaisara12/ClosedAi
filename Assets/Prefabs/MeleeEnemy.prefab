@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 8288788576210029669}
   - component: {fileID: 8050678866753363333}
   - component: {fileID: 3123094153184929598}
+  - component: {fileID: 2749274250607943785}
+  - component: {fileID: 1296269336376926144}
   m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -306,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c6cf124c3d31e4e9d0bddd8d7622c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDetector
-  _detectionRange: 15
+  _detectionRange: 30
   _horizontalAngle: 60
   _verticalAngle: 30
   _horizontalRayCount: 7
@@ -315,7 +317,7 @@ MonoBehaviour:
   _eyeTransform: {fileID: 0}
   _sightMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!114 &8288788576210029669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dee7b08980c175459e493f1e9cc681f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeAgent
-  _maxHealth: 100
+  _patrolRadius: 8
+  _patrolPauseDuration: 1.5
+  _patrolScanDuration: 2
+  _patrolScanSpeed: 60
   _attackCooldown: 2
   _attackRange: 1.5
   _attackCollider: {fileID: 3455141556299051272}
@@ -368,6 +373,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9465eb1ed76d665448e7fc4d4b8acd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroupBrainController
+--- !u!114 &2749274250607943785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957473869200839290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 212cff5e1397404d9b6697b232f593b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  CurrentHealth: 1
+  MaxHealth: 1
+  hasShield: 0
+--- !u!114 &1296269336376926144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957473869200839290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07114ad8d9b144228c45dee3b7799e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCounter
 --- !u!1001 &2450387326776007981
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,13 +1,16 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
 public class MeleeAttack : MonoBehaviour
 {
     [SerializeField] private Transform _cameraTransform;
-    [SerializeField] private float _range = 2f;
-    [SerializeField] private float _radius = 0.6f;
+    [SerializeField] private Vector3 _boxHalfExtents = new Vector3(0.6f, 0.8f, 0.8f);
+    [SerializeField] private float _boxOffset = 0.8f;
     [SerializeField] private float _cooldown = 0.5f;
     [SerializeField] private LayerMask _hitMask = ~0;
+
+    public event Action OnAttacked;
 
     private PlayerController _player;
     private Pistol _pistol;
@@ -34,24 +37,36 @@ public class MeleeAttack : MonoBehaviour
     private void DoMelee()
     {
         _nextAttackTime = Time.time + _cooldown;
+        OnAttacked?.Invoke();
 
-        RaycastHit[] hits = Physics.SphereCastAll(
-            _cameraTransform.position,
-            _radius,
-            _cameraTransform.forward,
-            _range,
-            _hitMask
-        );
+        Vector3 center = _cameraTransform.position + _cameraTransform.forward * _boxOffset;
+        Collider[] hits = Physics.OverlapBox(center, _boxHalfExtents, _cameraTransform.rotation, _hitMask);
 
-        foreach (RaycastHit hit in hits)
+        foreach (Collider col in hits)
         {
-            if (hit.collider.transform.IsChildOf(transform)) continue;
-            OnMeleeHit(hit.collider, hit);
+            if (col.transform.IsChildOf(transform)) continue;
+            OnMeleeHit(col);
         }
     }
 
-    private void OnMeleeHit(Collider col, RaycastHit hit)
+    private void OnMeleeHit(Collider col)
     {
-        // Add hit effects, damage, etc. here
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            if (col.TryGetComponent(out Health health))
+                health.TakeDamage(1);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (_cameraTransform == null) return;
+        Gizmos.color = new Color(1f, 0.2f, 0.2f, 0.4f);
+        Gizmos.matrix = Matrix4x4.TRS(
+            _cameraTransform.position + _cameraTransform.forward * _boxOffset,
+            _cameraTransform.rotation,
+            Vector3.one
+        );
+        Gizmos.DrawWireCube(Vector3.zero, _boxHalfExtents * 2f);
     }
 }
