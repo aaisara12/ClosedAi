@@ -15,6 +15,7 @@ public interface IShooter
 
 public interface IShieldProvider
 {
+    bool canGiveShield();
     void GiveShield(EnemyAgent target);
     void RemoveShield(EnemyAgent target);
 }

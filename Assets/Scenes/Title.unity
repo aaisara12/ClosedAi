@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d8e20b3b4e948929aadf39eeee7a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  sceneTransitionRequester: {fileID: 11400000, guid: 4f6f1fa91de4f441b8b35a5fa0543548, type: 2}
+  sceneTransitionRequester: {fileID: 11400000, guid: bee4991ba178d43ae96ec4adb696e24d, type: 2}
 --- !u!1 &1954322230
 GameObject:
   m_ObjectHideFlags: 0

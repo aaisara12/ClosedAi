@@ -11,6 +11,7 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
     [SerializeField] private float _burstDuration = 1f;
     [SerializeField] private float _burstFireRate = 0.15f;
     [SerializeField] private float _attackCooldown = 3f;
+    [SerializeField] private float _turnSpeed = 120f;
 
     public override EnemyType Type => EnemyType.Ranged;
     public float CooldownMultiplier { get; set; } = 1f;
@@ -18,6 +19,7 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
     private EnemyNavigator _nav;
     private bool _isFiring;
     private float _nextAttackTime;
+    private Vector3 _currentTarget;
 
     protected override void Awake()
     {
@@ -32,17 +34,19 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
     public void FacePosition(Vector3 worldPosition)
     {
         Vector3 dir = Vector3.ProjectOnPlane(worldPosition - transform.position, Vector3.up);
-        if (dir.sqrMagnitude > 0.001f)
-            transform.rotation = Quaternion.LookRotation(dir);
+        if (dir.sqrMagnitude < 0.001f) return;
+        Quaternion target = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, target, _turnSpeed * Time.deltaTime);
     }
 
     public void FireAt(Vector3 worldPosition)
     {
+        _currentTarget = worldPosition;
         if (_isFiring || Time.time < _nextAttackTime) return;
-        StartCoroutine(FireCoroutine(worldPosition));
+        StartCoroutine(FireCoroutine());
     }
 
-    private IEnumerator FireCoroutine(Vector3 target)
+    private IEnumerator FireCoroutine()
     {
         _isFiring = true;
         _nextAttackTime = Time.time + _attackCooldown * CooldownMultiplier;
@@ -52,7 +56,7 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
         float elapsed = 0f;
         while (elapsed < _burstDuration)
         {
-            ShootProjectile(target);
+            ShootProjectile(_currentTarget);
             yield return new WaitForSeconds(_burstFireRate);
             elapsed += _burstFireRate;
         }

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3035342399926516161}
   - component: {fileID: 1083508022663866212}
   - component: {fileID: 431501030911987113}
+  - component: {fileID: 5339527594276990038}
   m_Layer: 0
   m_Name: SignalPrefab
-  m_TagString: Untagged
+  m_TagString: Signal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,3 +185,41 @@ MonoBehaviour:
   lineColor: {r: 0, g: 1, b: 1, a: 0.4}
   hitboxRadius: 0.1
   signalLayer: Signals
+--- !u!114 &5339527594276990038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7005659912345958558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 212cff5e1397404d9b6697b232f593b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 431501030911987113}
+        m_TargetAssemblyTypeName: Signal, Assembly-CSharp
+        m_MethodName: Break
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  CurrentHealth: 1
+  MaxHealth: 1

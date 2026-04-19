@@ -9,7 +9,6 @@ public class SmokeArea : MonoBehaviour
     private void Awake()
     {
         SphereCollider col = GetComponent<SphereCollider>();
-        col.radius = _radius;
         col.isTrigger = true;
     }
 

@@ -54,26 +54,24 @@ public class DashController : MonoBehaviour
         _rb.useGravity = false;
 
         Vector3 dashDir = _cameraTransform.forward.normalized;
-        Vector3 start = transform.position;
 
-        // Stop short of any obstacle
+        // Pull the cast origin back so the sphere never starts inside a wall the player
+        // is already touching — SphereCast silently skips overlapping colliders at origin.
+        float pullback = _player.ColliderRadius;
         float safeDistance = _dashDistance;
-        if (Physics.SphereCast(start, _player.ColliderRadius * 0.9f, dashDir, out RaycastHit hit, _dashDistance, _dashMask))
-            safeDistance = Mathf.Max(0f, hit.distance - 0.1f);
-
-        Vector3 target = start + dashDir * safeDistance;
+        if (Physics.SphereCast(transform.position - dashDir * pullback, _player.ColliderRadius * 0.9f, dashDir, out RaycastHit hit, _dashDistance + pullback, _dashMask))
+            safeDistance = Mathf.Max(0f, hit.distance - pullback - 0.1f);
 
         _targetFOV = _dashFOV;
 
-        _rb.linearVelocity = Vector3.zero;
+        float dashSpeed = safeDistance / _dashDuration;
+        _rb.linearVelocity = dashDir * dashSpeed;
 
         var hitIds = new HashSet<int>();
         float elapsed = 0f;
         while (elapsed < _dashDuration)
         {
             elapsed += Time.fixedDeltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / _dashDuration);
-            _rb.MovePosition(Vector3.Lerp(start, target, t));
 
             Collider[] dashHits = Physics.OverlapSphere(transform.position, _player.ColliderRadius * 1.5f, _dashHitMask);
             foreach (Collider col in dashHits)
@@ -86,8 +84,7 @@ public class DashController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        _rb.MovePosition(target);
-        _rb.linearVelocity = dashDir * (_dashDistance / _dashDuration) * _momentumRetain;
+        _rb.linearVelocity = dashDir * dashSpeed * _momentumRetain;
         _rb.useGravity = true;
 
         _targetFOV = _camera != null ? _camera.BaseFOV : 90f;
@@ -97,6 +94,10 @@ public class DashController : MonoBehaviour
 
     private void OnDashHit(Collider col)
     {
-        // Add hit effects, damage, etc. here
+        // aisara => Only damage signals
+        if (col.CompareTag("Signal"))
+        {
+            col.GetComponent<Health>()?.TakeDamage(1);
+        }
     }
 }

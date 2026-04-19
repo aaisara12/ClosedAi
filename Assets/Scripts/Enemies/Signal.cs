@@ -43,10 +43,11 @@ public class Signal : MonoBehaviour
 
         Vector3 posA = ManagerA.transform.position;
         Vector3 posB = ManagerB.transform.position;
+        Vector3 aToB = Vector3.Normalize(posB - posA) * 0.3f;
 
         // Update visual
-        _lineRenderer.SetPosition(0, posA);
-        _lineRenderer.SetPosition(1, posB);
+        _lineRenderer.SetPosition(0, posA + aToB);
+        _lineRenderer.SetPosition(1, posB - aToB);
 
         // Update hitbox to follow the line
         UpdateCapsule(posA, posB);
