@@ -94,6 +94,10 @@ public class DashController : MonoBehaviour
 
     private void OnDashHit(Collider col)
     {
-        // Add hit effects, damage, etc. here
+        // aisara => Only damage signals
+        if (col.CompareTag("Signal"))
+        {
+            col.GetComponent<Health>()?.TakeDamage(1);
+        }
     }
 }
