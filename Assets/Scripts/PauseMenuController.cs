@@ -26,6 +26,12 @@ public class PauseMenuController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            // Hacky way of detecting if we're in a level or not
+            if (FindAnyObjectByType<Level>() == null)
+            {
+                return;
+            }
+            
             SetPauseState(!isPaused);
         }
     }
