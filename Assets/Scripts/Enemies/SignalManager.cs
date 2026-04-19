@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SignalManager : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class SignalManager : MonoBehaviour
     [Header("Signal Prefab")]
     [SerializeField] private Signal signalPrefab;
 
+    public Signal ActiveSignal;
+    
     // ── Events ────────────────────────────────────────────────────────────────
 
     /// <summary>
@@ -72,6 +75,8 @@ public class SignalManager : MonoBehaviour
         OnConnectionChanged?.Invoke(signal, true);
         other.OnConnectionChanged?.Invoke(signal, true);
 
+        ActiveSignal = signal;
+        other.ActiveSignal = signal;
         return true;
     }
 
@@ -107,6 +112,8 @@ public class SignalManager : MonoBehaviour
             OnFullyIsolated?.Invoke();
             StartCoroutine(DisableTemporarily());
         }
+
+        ActiveSignal = null;
     }
 
     /// <summary>Returns all SignalManagers reachable in the signal graph (BFS).</summary>
@@ -146,6 +153,11 @@ public class SignalManager : MonoBehaviour
     /// <summary>Active signals this manager holds.</summary>
     public IReadOnlyList<Signal> Connections => _connections;
 
+    public void BreakActiveSignal()
+    {
+        ActiveSignal?.Break();
+    }
+    
     // ── Private Helpers ───────────────────────────────────────────────────────
 
     private bool CanAcceptConnection() =>
