@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 4504657917953737247}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -639,6 +639,7 @@ MonoBehaviour:
   _cameraTransform: {fileID: 5480275820197394333}
   _cameraRollAngle: 12
   _cameraRollSpeed: 8
+  _cameraWallOffset: 0.35
 --- !u!120 &4728379034040776689
 LineRenderer:
   serializedVersion: 3
