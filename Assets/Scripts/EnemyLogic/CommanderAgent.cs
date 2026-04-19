@@ -17,6 +17,7 @@ public class CommanderAgent : EnemyAgent, IMovable, IShooter, IShieldProvider
     public void Stop() => _nav.Stop();
     public bool HasReached => _nav.HasReached;
 
+    public void FacePosition(Vector3 worldPosition) { }
     public void FireAt(Vector3 worldPosition) { }
 
     public void GiveShield(EnemyAgent target) { }

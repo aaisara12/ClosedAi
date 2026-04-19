@@ -14,7 +14,11 @@ public class SuppressiveFireStrategy : Strategy
     {
         if (!playerSpotted) return;
         foreach (var agent in _agents)
-            if (agent is IShooter s) s.FireAt(playerPos);
+            if (agent is IShooter s) 
+            {
+                (agent as IShooter).FacePosition(playerPos);
+                s.FireAt(playerPos);
+            }
     }
 
     public override void End() { }
