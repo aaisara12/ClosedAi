@@ -17,9 +17,16 @@ public class Health : MonoBehaviour
 
     public int CurrentHealth = 100;
     public int MaxHealth = 100;
+    public bool hasShield = false;
     
     public void TakeDamage(int damage)
     {
+        if (hasShield)
+        {
+            hasShield = false;
+            return;
+        }
+
         OnDamaged.Invoke(damage);
         
         CurrentHealth = Mathf.Max(CurrentHealth - damage, 0);

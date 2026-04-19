@@ -5,7 +5,7 @@ public class SuppressiveFireStrategy : Strategy
     public override int Priority => 10;
     public override StrategyRequirement[] Requirements => new[]
     {
-        new StrategyRequirement { Type = EnemyType.Ranged, Count = 3 }
+        new StrategyRequirement { Type = EnemyType.Ranged, Count = 2 }
     };
 
     public override void OnStart() { }
