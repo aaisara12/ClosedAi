@@ -163,7 +163,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -202,11 +202,12 @@ MonoBehaviour:
   _maxHealth: 100
   _projectilePrefab: {fileID: 8673089554018020048, guid: 46afb917f8c90d349809b8758ee25d29, type: 3}
   _firePoint: {fileID: 618369510354718916}
-  _projectileSpeed: 15
-  _preFirePause: 0.4
-  _burstDuration: 1
-  _burstFireRate: 0.15
+  _projectileSpeed: 50
+  _preFirePause: 0.2
+  _burstDuration: 0.6
+  _burstFireRate: 0.4
   _attackCooldown: 3
+  _turnSpeed: 360
 --- !u!114 &9197460199634941314
 MonoBehaviour:
   m_ObjectHideFlags: 0

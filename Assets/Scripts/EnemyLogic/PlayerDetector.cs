@@ -54,7 +54,7 @@ public class PlayerDetector : MonoBehaviour
                 float ht  = _horizontalRayCount == 1 ? 0.5f : (float)h / (_horizontalRayCount - 1);
                 float yaw = Mathf.Lerp(-_horizontalAngle * 0.5f, _horizontalAngle * 0.5f, ht);
 
-                Vector3 dir = Quaternion.Euler(pitch, yaw, 0f) * transform.forward;
+                Vector3 dir = transform.TransformDirection(Quaternion.Euler(pitch, yaw, 0f) * Vector3.forward);
 
                 if (Physics.Raycast(origin, dir, out RaycastHit hit, _detectionRange, _sightMask)
                     && hit.collider.CompareTag("Player"))
@@ -100,7 +100,7 @@ public class PlayerDetector : MonoBehaviour
             for (int i = 1; i <= segments; i++)
             {
                 float   yaw  = Mathf.Lerp(-halfH, halfH, (float)i / segments);
-                Vector3 next = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
+                Vector3 next = origin + transform.TransformDirection(Quaternion.Euler(pitch, yaw, 0f) * Vector3.forward) * _detectionRange;
                 Gizmos.DrawLine(prev, next);
                 prev = next;
             }
@@ -113,7 +113,7 @@ public class PlayerDetector : MonoBehaviour
             for (int i = 1; i <= segments; i++)
             {
                 float   pitch = Mathf.Lerp(-halfV, halfV, (float)i / segments);
-                Vector3 next  = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
+                Vector3 next  = origin + transform.TransformDirection(Quaternion.Euler(pitch, yaw, 0f) * Vector3.forward) * _detectionRange;
                 Gizmos.DrawLine(prev, next);
                 prev = next;
             }
