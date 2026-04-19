@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+// using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,6 +15,9 @@ public class ChaseDownStrategy : Strategy
 
     private const float PositioningRadius = 8f;
     private const int   CandidateCount    = 6;
+    private const float MinSeparation     = 2f;
+
+    private static readonly int SampleMask = LayerMask.GetMask("Player", "Terrain");
 
     private List<EnemyAgent> _meleeAgents;
     private List<EnemyAgent> _rangedAgents;
@@ -42,7 +46,10 @@ public class ChaseDownStrategy : Strategy
 
         if (!_rangedTargets[agent].HasValue)
         {
-            Vector3 pos = SamplePosition(playerPos, agent.transform.position);
+            var claimed = _rangedTargets
+                .Where(kvp => kvp.Key != agent && kvp.Value.HasValue)
+                .Select(kvp => kvp.Value.Value);
+            Vector3 pos = SamplePosition(playerPos, agent.transform.position, claimed);
             _rangedTargets[agent] = pos;
             movable?.MoveTo(pos);
             return;
@@ -50,40 +57,41 @@ public class ChaseDownStrategy : Strategy
 
         if (movable == null || !movable.HasReached) return;
 
-        if (HasLOS(agent.transform.position, playerPos))
-        {
-            shooter?.FacePosition(playerPos);
-            shooter?.FireAt(playerPos);
-        }
-        else
-        {
-            // Arrived but no LOS — pick a new position next tick
-            _rangedTargets[agent] = null;
-        }
+        shooter?.FacePosition(playerPos);
+        shooter?.FireAt(playerPos);
     }
 
-    private Vector3 SamplePosition(Vector3 playerPos, Vector3 fallback)
+    // Shoots evenly spaced rays outward from the player. A ray miss means open space at
+    // full radius; a hit is valid if it's far enough that the agent has room to stand and shoot.
+    private Vector3 SamplePosition(Vector3 playerPos, Vector3 fallback, IEnumerable<Vector3> claimed)
     {
         for (int i = 0; i < CandidateCount; i++)
         {
-            float angle     = Random.Range(0f, 360f);
-            Vector3 offset   = Quaternion.Euler(0f, angle, 0f) * Vector3.forward * PositioningRadius;
-            Vector3 candidate = playerPos + offset;
+            float   angle = 360f * i / CandidateCount;
+            Vector3 dir   = Quaternion.Euler(0f, angle, 0f) * Vector3.forward;
 
-            if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, 2f, NavMesh.AllAreas)
-                && HasLOS(hit.position, playerPos))
-                return hit.position;
+            Vector3 candidate;
+            if (Physics.Raycast(playerPos, dir, out RaycastHit hit, PositioningRadius, SampleMask))
+            {
+                if (hit.distance < PositioningRadius * 0.5f) continue;
+                candidate = hit.point - dir * 0.2f;
+            }
+            else
+            {
+                candidate = playerPos + dir * PositioningRadius;
+            }
+
+            if (!NavMesh.SamplePosition(candidate, out NavMeshHit navHit, 2f, NavMesh.AllAreas))
+                continue;
+
+            bool tooClose = false;
+            foreach (var pos in claimed)
+                if (Vector3.Distance(navHit.position, pos) < MinSeparation)
+                    { tooClose = true; break; }
+
+            if (!tooClose) return navHit.position;
         }
         return fallback;
-    }
-
-    // Offsets origin slightly toward target to clear the agent's own collider
-    private bool HasLOS(Vector3 from, Vector3 to)
-    {
-        Vector3 dir  = to - from;
-        float   dist = dir.magnitude;
-        Vector3 origin = from + dir.normalized * 0.3f;
-        return !Physics.Raycast(origin, dir.normalized, Mathf.Max(0f, dist - 0.3f));
     }
 
     public override void End()
