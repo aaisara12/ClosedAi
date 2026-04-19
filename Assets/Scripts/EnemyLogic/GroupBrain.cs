@@ -12,7 +12,17 @@ public class GroupBrain : MonoBehaviour
     public Vector3 LastKnownPlayerPosition { get; private set; }
     public bool PlayerSpotted { get; private set; }
 
-    // Called by the connection system when this group gains a member
+    public void AddMembers(List<EnemyAgent> agents)
+    {
+        foreach (var a in agents)
+        {
+            if (_members.Contains(a)) continue;
+            _members.Add(a);
+            a.Brain = this;
+        }
+        Reassign();
+    }
+
     public void AddMember(EnemyAgent agent)
     {
         if (_members.Contains(agent)) return;
@@ -46,6 +56,16 @@ public class GroupBrain : MonoBehaviour
 
         foreach (var s in _strategies)
             s.Tick(LastKnownPlayerPosition, PlayerSpotted);
+    }
+
+    public void Dissolve()
+    {
+        foreach (var s in _strategies) s.End();
+        foreach (var m in new List<EnemyAgent>(_members))
+            m.Brain = null;
+        _members.Clear();
+        _strategies.Clear();
+        Destroy(gameObject);
     }
 
     private void Reassign()

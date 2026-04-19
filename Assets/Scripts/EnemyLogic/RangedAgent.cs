@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyNavigator))]
+[RequireComponent(typeof(EnemyNavigator), typeof(PlayerDetector))]
 public class RangedAgent : EnemyAgent, IMovable, IShooter
 {
     [SerializeField] private GameObject _projectilePrefab;
@@ -28,6 +28,13 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
     public void MoveTo(Vector3 position) => _nav.MoveTo(position);
     public void Stop() => _nav.Stop();
     public bool HasReached => _nav.HasReached;
+
+    public void FacePosition(Vector3 worldPosition)
+    {
+        Vector3 dir = Vector3.ProjectOnPlane(worldPosition - transform.position, Vector3.up);
+        if (dir.sqrMagnitude > 0.001f)
+            transform.rotation = Quaternion.LookRotation(dir);
+    }
 
     public void FireAt(Vector3 worldPosition)
     {

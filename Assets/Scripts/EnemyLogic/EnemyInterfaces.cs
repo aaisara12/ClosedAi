@@ -10,6 +10,7 @@ public interface IMovable
 public interface IShooter
 {
     void FireAt(Vector3 worldPosition);
+    void FacePosition(Vector3 worldPosition);
 }
 
 public interface IShieldProvider

@@ -4,9 +4,11 @@ using UnityEngine;
 public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] private float _detectionRange = 15f;
-    [SerializeField] [Range(1f, 180f)] private float _detectionAngle = 60f;
-    [SerializeField] private int _rayCount = 7;
-    [SerializeField] private float _checkInterval = 0.15f;
+    [SerializeField] [Range(1f, 180f)] private float _horizontalAngle = 60f;
+    [SerializeField] [Range(1f, 180f)] private float _verticalAngle = 30f;
+    [SerializeField] private int _horizontalRayCount = 7;
+    [SerializeField] private int _verticalRayCount = 3;
+    [SerializeField] private float _checkInterval = 0.5f;
     [SerializeField] private Transform _eyeTransform;
     [SerializeField] private LayerMask _sightMask = ~0;
 
@@ -29,17 +31,24 @@ public class PlayerDetector : MonoBehaviour
         playerPos = Vector3.zero;
         Vector3 origin = _eyeTransform != null ? _eyeTransform.position : transform.position;
 
-        for (int i = 0; i < _rayCount; i++)
+        for (int v = 0; v < _verticalRayCount; v++)
         {
-            float t = _rayCount == 1 ? 0.5f : (float)i / (_rayCount - 1);
-            float angle = Mathf.Lerp(-_detectionAngle * 0.5f, _detectionAngle * 0.5f, t);
-            Vector3 dir = Quaternion.Euler(0f, angle, 0f) * transform.forward;
+            float vt = _verticalRayCount == 1 ? 0.5f : (float)v / (_verticalRayCount - 1);
+            float pitch = Mathf.Lerp(-_verticalAngle * 0.5f, _verticalAngle * 0.5f, vt);
 
-            if (Physics.Raycast(origin, dir, out RaycastHit hit, _detectionRange, _sightMask)
-                && hit.collider.CompareTag("Player"))
+            for (int h = 0; h < _horizontalRayCount; h++)
             {
-                playerPos = hit.collider.transform.position;
-                return true;
+                float ht = _horizontalRayCount == 1 ? 0.5f : (float)h / (_horizontalRayCount - 1);
+                float yaw = Mathf.Lerp(-_horizontalAngle * 0.5f, _horizontalAngle * 0.5f, ht);
+
+                Vector3 dir = Quaternion.Euler(pitch, yaw, 0f) * transform.forward;
+
+                if (Physics.Raycast(origin, dir, out RaycastHit hit, _detectionRange, _sightMask)
+                    && hit.collider.CompareTag("Player"))
+                {
+                    playerPos = hit.collider.transform.position;
+                    return true;
+                }
             }
         }
 
@@ -51,18 +60,36 @@ public class PlayerDetector : MonoBehaviour
         Vector3 origin = _eyeTransform != null ? _eyeTransform.position : transform.position;
         Gizmos.color = Color.yellow;
 
-        int arcSegments = 20;
-        float halfAngle = _detectionAngle * 0.5f;
-        Vector3 prev = origin + Quaternion.Euler(0f, -halfAngle, 0f) * transform.forward * _detectionRange;
+        int segments = 20;
+        float halfH = _horizontalAngle * 0.5f;
+        float halfV = _verticalAngle * 0.5f;
 
-        Gizmos.DrawLine(origin, prev);
-        for (int i = 1; i <= arcSegments; i++)
+        // Horizontal arc (top, middle, bottom)
+        foreach (float pitch in new[] { -halfV, 0f, halfV })
         {
-            float angle = Mathf.Lerp(-halfAngle, halfAngle, (float)i / arcSegments);
-            Vector3 next = origin + Quaternion.Euler(0f, angle, 0f) * transform.forward * _detectionRange;
-            Gizmos.DrawLine(prev, next);
-            prev = next;
+            Vector3 prev = origin + Quaternion.Euler(pitch, -halfH, 0f) * transform.forward * _detectionRange;
+            Gizmos.DrawLine(origin, prev);
+            for (int i = 1; i <= segments; i++)
+            {
+                float yaw = Mathf.Lerp(-halfH, halfH, (float)i / segments);
+                Vector3 next = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
+                Gizmos.DrawLine(prev, next);
+                prev = next;
+            }
+            Gizmos.DrawLine(origin, prev);
         }
-        Gizmos.DrawLine(origin, prev);
+
+        // Vertical arcs (left, centre, right)
+        foreach (float yaw in new[] { -halfH, 0f, halfH })
+        {
+            Vector3 prev = origin + Quaternion.Euler(-halfV, yaw, 0f) * transform.forward * _detectionRange;
+            for (int i = 1; i <= segments; i++)
+            {
+                float pitch = Mathf.Lerp(-halfV, halfV, (float)i / segments);
+                Vector3 next = origin + Quaternion.Euler(pitch, yaw, 0f) * transform.forward * _detectionRange;
+                Gizmos.DrawLine(prev, next);
+                prev = next;
+            }
+        }
     }
 }

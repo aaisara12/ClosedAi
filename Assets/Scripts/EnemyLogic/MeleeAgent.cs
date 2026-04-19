@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyNavigator))]
+[RequireComponent(typeof(EnemyNavigator), typeof(PlayerDetector))]
 public class MeleeAgent : EnemyAgent, IMovable
 {
     [SerializeField] private float _attackCooldown = 2f;
