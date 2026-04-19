@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 9197460199634941314}
   - component: {fileID: 6456829123466489810}
   - component: {fileID: 2870128949281073871}
+  - component: {fileID: 3320658816795299446}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -199,7 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5faa6a428bbc95a42a7839a2adfa0c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedAgent
-  _maxHealth: 100
+  _patrolRadius: 3
+  _patrolPauseDuration: 1.5
+  _patrolScanDuration: 2
+  _patrolScanSpeed: 60
   _projectilePrefab: {fileID: 8673089554018020048, guid: 46afb917f8c90d349809b8758ee25d29, type: 3}
   _firePoint: {fileID: 618369510354718916}
   _projectileSpeed: 50
@@ -220,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40c6cf124c3d31e4e9d0bddd8d7622c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDetector
-  _detectionRange: 15
+  _detectionRange: 30
   _horizontalAngle: 60
   _verticalAngle: 30
   _horizontalRayCount: 7
@@ -260,6 +264,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9465eb1ed76d665448e7fc4d4b8acd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroupBrainController
+--- !u!114 &3320658816795299446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8500370223816791230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 212cff5e1397404d9b6697b232f593b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  CurrentHealth: 1
+  MaxHealth: 1
+  hasShield: 0
 --- !u!1001 &2372109062189174758
 PrefabInstance:
   m_ObjectHideFlags: 0

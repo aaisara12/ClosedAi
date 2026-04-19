@@ -45,6 +45,17 @@ public class SignalManager : MonoBehaviour
         StartCoroutine(InitialConnect());
     }
 
+    private void OnDestroy()
+    {
+        var toBreak = new List<Signal>(_connections);
+        foreach (Signal signal in toBreak)
+        {
+            SignalManager other = signal.GetOther(this);
+            other?.OnSignalBroken(signal);
+            if (signal != null) Destroy(signal.gameObject);
+        }
+    }
+
     // Small delay so all enemies have initialised before we try to link up.
     private IEnumerator InitialConnect()
     {
@@ -215,6 +226,7 @@ public class SignalManager : MonoBehaviour
         yield return new WaitForSeconds(reconnectDelay);
         _pendingReconnect.Remove(target);
 
+        if (target == null) yield break;
         if (!_isDisabled && !IsConnectedTo(target))
             TryConnectTo(target);
     }

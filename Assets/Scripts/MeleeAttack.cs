@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
@@ -8,6 +9,8 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private float _radius = 0.6f;
     [SerializeField] private float _cooldown = 0.5f;
     [SerializeField] private LayerMask _hitMask = ~0;
+
+    public event Action OnAttacked;
 
     private PlayerController _player;
     private Pistol _pistol;
@@ -34,6 +37,7 @@ public class MeleeAttack : MonoBehaviour
     private void DoMelee()
     {
         _nextAttackTime = Time.time + _cooldown;
+        OnAttacked?.Invoke();
 
         RaycastHit[] hits = Physics.SphereCastAll(
             _cameraTransform.position,
@@ -52,6 +56,11 @@ public class MeleeAttack : MonoBehaviour
 
     private void OnMeleeHit(Collider col, RaycastHit hit)
     {
-        // Add hit effects, damage, etc. here
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            // Implement damage logic here, e.g.:
+            if (col.TryGetComponent(out Health health))
+                health.TakeDamage(1);
+        }   
     }
 }
