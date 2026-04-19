@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 9197460199634941314}
   - component: {fileID: 6456829123466489810}
   - component: {fileID: 2870128949281073871}
+  - component: {fileID: 1569168854006153952}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -260,6 +261,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9465eb1ed76d665448e7fc4d4b8acd5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GroupBrainController
+--- !u!114 &1569168854006153952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8500370223816791230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07114ad8d9b144228c45dee3b7799e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCounter
 --- !u!1001 &2372109062189174758
 PrefabInstance:
   m_ObjectHideFlags: 0
