@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -176,16 +178,33 @@ public class SignalManager : MonoBehaviour
     private void TryScanAndConnect()
     {
         if (_isDisabled) return;
+        if (_connections.Count >= maxConnections) return;
 
         Collider[] hits = Physics.OverlapSphere(transform.position, connectionRadius);
-        foreach (Collider col in hits)
+
+        List<SignalManager> candidates = hits
+            .Select(hit => hit.GetComponent<SignalManager>())
+            .Where(sm => sm != null && sm != this)
+            .ToList();
+
+
+        var alreadyConnected = GetAllInGraph();
+        List<SignalManager> prioCandidates = candidates
+            .Where(c => !alreadyConnected.Contains(c))
+            .ToList();
+        foreach(var c in prioCandidates)
         {
-            if (_connections.Count >= maxConnections) break;
+            TryConnectTo(c);
+            if (_connections.Count >= maxConnections) return;
+        }
 
-            var candidate = col.GetComponent<SignalManager>();
-            if (candidate == null || candidate == this) continue;
-
-            TryConnectTo(candidate);
+        List<SignalManager> otherCandidates = candidates
+            .Where(c => alreadyConnected.Contains(c))
+            .ToList();
+        foreach(var c in otherCandidates)
+        {
+            TryConnectTo(c);
+            if (_connections.Count >= maxConnections) return;
         }
     }
 
