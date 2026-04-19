@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 207222203}
   - component: {fileID: 207222202}
   - component: {fileID: 207222201}
+  - component: {fileID: 207222205}
   m_Layer: 0
   m_Name: SignalNode
   m_TagString: Untagged
@@ -242,6 +243,7 @@ MonoBehaviour:
   reconnectDelay: 3
   disabledDuration: 8
   signalPrefab: {fileID: 431501030911987113, guid: 657a502c3ae314440a95f1ee06509d68, type: 3}
+  ActiveSignal: {fileID: 0}
 --- !u!135 &207222204
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -263,6 +265,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &207222205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207222199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccde7ff980a0f4e8fdb96ee2fdf1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignalStatus
+  iconList: []
 --- !u!1 &385239184
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +405,36 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &583873084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2050509962462764413, guid: 6c3ced4a0b70190429942de3f8a9ae57, type: 3}
+  m_PrefabInstance: {fileID: 527605069919697101}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &583873086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583873084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccde7ff980a0f4e8fdb96ee2fdf1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignalStatus
+  iconList:
+  - icon: 0
+    sprite: {fileID: 21300000, guid: 9d0dc7471868fdf458bcd2d159ce6172, type: 3}
+    color: {r: 0.4, g: 0.7921569, b: 1, a: 0}
+  - icon: 1
+    sprite: {fileID: 21300000, guid: e838ed5de103e0f478bebfb921c9fbb6, type: 3}
+    color: {r: 0.9528302, g: 0.29214135, b: 0.33979538, a: 0}
+  - icon: 2
+    sprite: {fileID: 21300000, guid: 9d0dc7471868fdf458bcd2d159ce6172, type: 3}
+    color: {r: 0.9150943, g: 0.5478075, b: 0.28057137, a: 0}
+  - icon: 3
+    sprite: {fileID: 21300000, guid: bafe6f7ceb0ff0a439e0d563db27ca91, type: 3}
+    color: {r: 0.7544977, g: 0.33397114, b: 0.8962264, a: 0}
 --- !u!1001 &614490602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -917,6 +962,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.4009434
       objectReference: {fileID: 0}
+    - target: {fileID: 3027582975993598254, guid: 6c3ced4a0b70190429942de3f8a9ae57, type: 3}
+      propertyPath: hasShield
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7251908298796841236, guid: 6c3ced4a0b70190429942de3f8a9ae57, type: 3}
       propertyPath: m_Name
       value: EnemyTest
@@ -964,7 +1013,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2050509962462764413, guid: 6c3ced4a0b70190429942de3f8a9ae57, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 583873086}
   m_SourcePrefab: {fileID: 100100000, guid: 6c3ced4a0b70190429942de3f8a9ae57, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
