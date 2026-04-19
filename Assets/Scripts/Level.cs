@@ -8,7 +8,9 @@ using UnityEngine.Events;
 /// </summary>
 public class Level : MonoBehaviour
 {
-    public UnityEvent OnLevelWon;
+    [SerializeField] private UnityEvent OnLevelWon;
+    [SerializeField] private UnityEvent OnLevelRestarted;
+    [SerializeField] private UnityEvent OnLevelLost;
     
     private bool isLevelWon;
     
@@ -24,5 +26,15 @@ public class Level : MonoBehaviour
     {
         isLevelWon = true;
         OnLevelWon.Invoke();
+    }
+
+    public void RestartLevel()
+    {
+        OnLevelRestarted.Invoke();
+    }
+
+    public void LoseLevel()
+    {
+        OnLevelLost.Invoke();
     }
 }

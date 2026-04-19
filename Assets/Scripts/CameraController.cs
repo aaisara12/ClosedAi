@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        else if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Cursor.lockState == CursorLockMode.None)
+        else if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame && Cursor.lockState == CursorLockMode.None && Time.timeScale != 0)   // Time scale is hacky way of detecting we're in pause menu
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
