@@ -20,6 +20,7 @@ public class CommanderAgent : EnemyAgent, IMovable, IShooter, IShieldProvider
     public void FacePosition(Vector3 worldPosition) { }
     public void FireAt(Vector3 worldPosition) { }
 
+    public bool canGiveShield() { return false; }
     public void GiveShield(EnemyAgent target) { }
     public void RemoveShield(EnemyAgent target) { }
 }
