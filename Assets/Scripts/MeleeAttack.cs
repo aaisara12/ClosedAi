@@ -9,6 +9,7 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private float _boxOffset = 0.8f;
     [SerializeField] private float _cooldown = 0.5f;
     [SerializeField] private LayerMask _hitMask = ~0;
+    [SerializeField] private SwordSlashEffect _slashEffect;
 
     public event Action OnAttacked;
 
@@ -30,7 +31,7 @@ public class MeleeAttack : MonoBehaviour
     private void Update()
     {
         bool pistolActive = _pistol != null && _pistol.IsEquipped;
-        if (_input.Player.Fire.WasPressedThisFrame() && !pistolActive && Time.time >= _nextAttackTime)
+        if (!pistolActive && Time.time >= _nextAttackTime)
             DoMelee();
     }
 
@@ -38,6 +39,7 @@ public class MeleeAttack : MonoBehaviour
     {
         _nextAttackTime = Time.time + _cooldown;
         OnAttacked?.Invoke();
+        _slashEffect?.Spawn(_cameraTransform, UnityEngine.Random.Range(0f, 0f));
 
         Vector3 center = _cameraTransform.position + _cameraTransform.forward * _boxOffset;
         Collider[] hits = Physics.OverlapBox(center, _boxHalfExtents, _cameraTransform.rotation, _hitMask);

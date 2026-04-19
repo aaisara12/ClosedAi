@@ -131,6 +131,11 @@ GameObject:
   - component: {fileID: 461429531}
   - component: {fileID: 461429530}
   - component: {fileID: 461429533}
+  - component: {fileID: 461429538}
+  - component: {fileID: 461429537}
+  - component: {fileID: 461429536}
+  - component: {fileID: 461429535}
+  - component: {fileID: 461429534}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -256,6 +261,127 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &461429534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461429529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6774749d8e47f2ae216488764002a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordSlashEffect
+  _baseMaterial: {fileID: 2100000, guid: 69e7a5e2d2c9f4c768d7e3ffaa898980, type: 2}
+  _arcAngleDeg: 165.3
+  _arcInnerRadius: 0.88
+  _arcOuterRadius: 1.2
+  _arcSegments: 20
+  _slashAngleDeg: -24.5
+  _duration: 0.2
+  _spawnDistance: 1.47
+  _coreColor: {r: 1, g: 1, b: 1, a: 1}
+  _midColor: {r: 0.6, g: 0.85, b: 1, a: 1}
+  _outerColor: {r: 0.1, g: 0.3, b: 0.9, a: 1}
+  _emissiveBoost: 4.78
+  _glowWidth: 0.25
+  _glowFalloff: 2.5
+  _sweepSharpness: 6
+--- !u!114 &461429535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461429529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35a61f560994f54e8c72843089c2815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
+  _cameraTransform: {fileID: 461429532}
+  _range: 2
+  _radius: 0.6
+  _cooldown: 0.5
+  _hitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _slashEffect: {fileID: 461429534}
+--- !u!114 &461429536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461429529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa785c4191694534eb9f891a3ccbd2d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  _moveSpeed: 6
+  _crouchSpeed: 3
+  _groundAccel: 20
+  _groundDecel: 15
+  _airSteering: 4
+  _maxAirSpeed: 6
+  _jumpForce: 8
+  _crouchHeight: 1
+  _crouchCameraDropAmount: 0.6
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!136 &461429537
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461429529}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &461429538
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461429529}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &737503829
 PrefabInstance:
   m_ObjectHideFlags: 0
