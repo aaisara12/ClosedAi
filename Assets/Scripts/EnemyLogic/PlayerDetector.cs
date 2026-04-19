@@ -33,8 +33,8 @@ public class PlayerDetector : MonoBehaviour
         // During confirming, also check direct LOS to the last known position
         // so the player can't shake detection simply by stepping out of the cone
         var brain = _agent.Brain;
-        if (brain != null && brain.IsConfirming)
-            return TryDirectLOS(brain.LastKnownPlayerPosition, out playerPos);
+        if (brain != null && (brain.IsConfirming || brain.IsExecuting))
+            return TryDirectLOS(PlayerController.Instance.transform.position, out playerPos);
 
         return false;
     }

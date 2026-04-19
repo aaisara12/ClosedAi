@@ -41,8 +41,11 @@ public class PlayerController : MonoBehaviour
     private Vector3 _standCenter;
     private float _standBottom;
 
+    public static PlayerController Instance { get; private set; }
+
     private void Awake()
     {
+        Instance = this;
         _rb = GetComponent<Rigidbody>();
         _col = GetComponent<CapsuleCollider>();
         _cameraController = GetComponent<CameraController>();

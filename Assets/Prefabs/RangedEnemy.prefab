@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedAgent
   _maxHealth: 100
-  _projectilePrefab: {fileID: 8556013833222930018, guid: c09885f1938a13b4ab2d57afc823fe8b, type: 3}
+  _projectilePrefab: {fileID: 8673089554018020048, guid: 46afb917f8c90d349809b8758ee25d29, type: 3}
   _firePoint: {fileID: 618369510354718916}
   _projectileSpeed: 15
   _preFirePause: 0.4
@@ -219,8 +219,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDetector
   _detectionRange: 15
-  _detectionAngle: 60
-  _rayCount: 7
+  _horizontalAngle: 60
+  _verticalAngle: 30
+  _horizontalRayCount: 7
+  _verticalRayCount: 3
   _checkInterval: 0.5
   _eyeTransform: {fileID: 0}
   _sightMask:

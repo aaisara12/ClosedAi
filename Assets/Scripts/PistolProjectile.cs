@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -25,5 +26,16 @@ public class PistolProjectile : MonoBehaviour
     private void OnProjectileHit(Collision collision)
     {
         // Add hit effects, damage, etc. here
+    }
+
+    private void OnEnemyProjectileHit(Collider other)
+    {
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        OnEnemyProjectileHit(other);
+        Destroy(gameObject);
     }
 }

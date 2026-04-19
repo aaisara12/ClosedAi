@@ -90,7 +90,7 @@ public class GroupBrain : MonoBehaviour
                 }
 
                 foreach (var s in _strategies)
-                    s.Tick(LastKnownPlayerPosition, true);
+                    s.Tick(PlayerController.Instance.transform.position, true);
                 break;
         }
     }
