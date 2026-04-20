@@ -146,7 +146,7 @@ public class PlayerAnimator : MonoBehaviour
         if (_swordArm == null) yield break;
         Vector3 startPos = _swordArm.localPosition;
         Vector3 dipPos = _swordArmReadyPos + _hideOffset;
-        yield return MoveArm(_swordArm, startPos, dipPos, _swordDipDuration);
+        yield return MoveArm(_swordArm, startPos, dipPos, _swordDipDuration / 2);
         yield return MoveArm(_swordArm, _swordArm.localPosition, _swordArmReadyPos, _swordDipDuration);
     }
 
