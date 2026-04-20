@@ -5632,7 +5632,7 @@ MonoBehaviour:
   _hitMask:
     serializedVersion: 2
     m_Bits: 822
-  _slashEffect: {fileID: 0}
+  _slashEffect: {fileID: 9117956304121988776, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
   minSlashAngle: 90
   maxSlashAngle: 100
 --- !u!114 &3525495563069156683
