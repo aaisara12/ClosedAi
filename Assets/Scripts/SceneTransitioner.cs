@@ -74,20 +74,12 @@ public class SceneTransitioner : MonoBehaviour
             yield return StartCoroutine(loadingScreenAnimator.FadeInLoadingScreenCoroutine());
         yield return new WaitForSeconds(delayBeforeTogglingLoadingScreen);
         
-        var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        if (loadOp == null)
-        {
-            Debug.LogError($"Failed to load new scene '{sceneName}'");
-            isTransitioning = false;
-            yield break;
-        }
-
         if (lastSceneLoaded == null)
         {
             var activeScene = SceneManager.GetActiveScene();
             lastSceneLoaded = activeScene.name;
         }
-
+        
         var unloadOp = SceneManager.UnloadSceneAsync(lastSceneLoaded);
         if (unloadOp == null)
         {
@@ -95,10 +87,18 @@ public class SceneTransitioner : MonoBehaviour
             isTransitioning = false;
             yield break;
         }
-
-        // Both ops started simultaneously; yield sequentially to wait for both
-        yield return loadOp;
+        
         yield return unloadOp;
+        
+        var loadOp = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        if (loadOp == null)
+        {
+            Debug.LogError($"Failed to load new scene '{sceneName}'");
+            isTransitioning = false;
+            yield break;
+        }
+        
+        yield return loadOp;
         
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         
