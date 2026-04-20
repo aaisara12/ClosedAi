@@ -23,6 +23,8 @@ public class Health : MonoBehaviour
     public bool hasShield = false;
     public bool canRegen = false;
 
+    public GameObject Shield;
+    
     [Header("Regen Settings")]
     [Tooltip("Seconds after last damage before regeneration begins.")]
     [SerializeField] private float regenDelay = 5f;
@@ -44,6 +46,11 @@ public class Health : MonoBehaviour
 
     private void Update()
     {
+        if (Shield != null)
+        {
+            Shield.SetActive(hasShield);
+        }
+        
         if (CurrentHealth >= MaxHealth)
         {
             RegenProgress = 0f;
