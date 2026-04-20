@@ -49,7 +49,10 @@ public class SwordSlashEffect : MonoBehaviour
     /// Call this to spawn a slash effect in front of <paramref name="cam"/>.
     /// Each call creates an independent instance that manages its own lifetime.
     /// </summary>
-    public void Spawn(Transform cam, float rollAngleDeg = 0f)
+    /// <param name="cam">The camera transform used for placement and orientation.</param>
+    /// <param name="rollAngleDeg">Rotation around the camera's forward (Z) axis, applied after yaw.</param>
+    /// <param name="yawAngleDeg">Rotation around the camera's up (Y) axis, applied before roll.</param>
+    public void Spawn(Transform cam, float rollAngleDeg = 0f, float yawAngleDeg = -80f)
     {
         if (_baseMaterial == null)
         {
@@ -88,8 +91,9 @@ public class SwordSlashEffect : MonoBehaviour
         Vector3 spawnPos = cam.position + cam.forward * _spawnDistance;
         go.transform.position = spawnPos;
 
-        // Orient: face the camera, then rotate around the look axis by rollAngleDeg
-        go.transform.rotation = cam.rotation * Quaternion.AngleAxis(rollAngleDeg, Vector3.forward);
+        // Orient: face the camera, yaw around the up axis, then roll around the forward axis
+        go.transform.rotation = cam.rotation * Quaternion.AngleAxis(rollAngleDeg, Vector3.forward) *
+                                Quaternion.AngleAxis(yawAngleDeg, Vector3.up);
 
         // Hand off lifetime management to a transient runner
         SlashRunner runner = go.AddComponent<SlashRunner>();

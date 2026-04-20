@@ -17,7 +17,7 @@ public class MeleeAttack : MonoBehaviour
     private Pistol _pistol;
     private ClosedAi _input;
     private float _nextAttackTime;
-
+    
     private void Awake()
     {
         _player = GetComponent<PlayerController>();
@@ -39,7 +39,7 @@ public class MeleeAttack : MonoBehaviour
     {
         _nextAttackTime = Time.time + _cooldown;
         OnAttacked?.Invoke();
-        _slashEffect?.Spawn(_cameraTransform, UnityEngine.Random.Range(0f, 0f));
+        _slashEffect?.Spawn(_cameraTransform, UnityEngine.Random.Range(0, 360f));
 
         Vector3 center = _cameraTransform.position + _cameraTransform.forward * _boxOffset;
         Collider[] hits = Physics.OverlapBox(center, _boxHalfExtents, _cameraTransform.rotation, _hitMask);

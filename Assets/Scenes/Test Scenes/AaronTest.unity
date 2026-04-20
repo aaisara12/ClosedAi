@@ -274,20 +274,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwordSlashEffect
   _baseMaterial: {fileID: 2100000, guid: 69e7a5e2d2c9f4c768d7e3ffaa898980, type: 2}
-  _arcAngleDeg: 165.3
-  _arcInnerRadius: 0.88
-  _arcOuterRadius: 1.2
+  _arcAngleDeg: 252
+  _arcInnerRadius: 1.25
+  _arcOuterRadius: 8.21
   _arcSegments: 20
-  _slashAngleDeg: -24.5
-  _duration: 0.2
+  _slashAngleDeg: -21.7
+  _duration: 0.15
   _spawnDistance: 1.47
-  _coreColor: {r: 1, g: 1, b: 1, a: 1}
+  _coreColor: {r: 0, g: 0.22272372, b: 1, a: 1}
   _midColor: {r: 0.6, g: 0.85, b: 1, a: 1}
   _outerColor: {r: 0.1, g: 0.3, b: 0.9, a: 1}
-  _emissiveBoost: 4.78
-  _glowWidth: 0.25
+  _emissiveBoost: 2
+  _glowWidth: 1.07
   _glowFalloff: 2.5
-  _sweepSharpness: 6
+  _sweepSharpness: 11.78
 --- !u!114 &461429535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +308,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   _slashEffect: {fileID: 461429534}
+  SlashAngle: 0
 --- !u!114 &461429536
 MonoBehaviour:
   m_ObjectHideFlags: 0
