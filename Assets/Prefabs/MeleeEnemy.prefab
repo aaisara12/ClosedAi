@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 3123094153184929598}
   - component: {fileID: 2749274250607943785}
   - component: {fileID: 1296269336376926144}
+  - component: {fileID: 4002894892289259804}
   m_Layer: 9
   m_Name: MeleeEnemy
   m_TagString: Untagged
@@ -323,6 +324,31 @@ MonoBehaviour:
   _spinDuration: 0.28
   _overshootAngle: 20
   _recoveryDuration: 0.1
+  _lungeDistance: 2
+  _lungeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &8050678866753363333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,10 +402,40 @@ MonoBehaviour:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4002894892289259804}
+        m_TargetAssemblyTypeName: EffectSpawner, Assembly-CSharp
+        m_MethodName: SpawnEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5957473869200839290}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHeartRegen:
+    m_PersistentCalls:
       m_Calls: []
   CurrentHealth: 1
   MaxHealth: 1
   hasShield: 0
+  canRegen: 0
+  regenDelay: 5
+  regenDuration: 2
 --- !u!114 &1296269336376926144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +448,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07114ad8d9b144228c45dee3b7799e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCounter
+--- !u!114 &4002894892289259804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957473869200839290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e572a49d84455d91af6fda31111970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectSpawner
+  effectPrefab: {fileID: 1478777543592028884, guid: 8a5f745e1fe05420c9381a0f7cee5e72, type: 3}
+  lifeTimeSeconds: 3
 --- !u!1001 &2450387326776007981
 PrefabInstance:
   m_ObjectHideFlags: 0

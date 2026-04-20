@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 2870128949281073871}
   - component: {fileID: 3320658816795299446}
   - component: {fileID: 6025505775444380541}
+  - component: {fileID: 4162986101145742654}
   m_Layer: 9
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -205,6 +206,7 @@ MonoBehaviour:
   _patrolPauseDuration: 1.5
   _patrolScanDuration: 2
   _patrolScanSpeed: 60
+  _isolationDuration: 3
   _projectilePrefab: {fileID: 8673089554018020048, guid: 46afb917f8c90d349809b8758ee25d29, type: 3}
   _firePoint: {fileID: 618369510354718916}
   _projectileSpeed: 50
@@ -288,10 +290,40 @@ MonoBehaviour:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4162986101145742654}
+        m_TargetAssemblyTypeName: EffectSpawner, Assembly-CSharp
+        m_MethodName: SpawnEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8500370223816791230}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnHeartRegen:
+    m_PersistentCalls:
       m_Calls: []
   CurrentHealth: 1
   MaxHealth: 1
   hasShield: 0
+  canRegen: 0
+  regenDelay: 5
+  regenDuration: 2
 --- !u!114 &6025505775444380541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +336,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07114ad8d9b144228c45dee3b7799e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCounter
+--- !u!114 &4162986101145742654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8500370223816791230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e572a49d84455d91af6fda31111970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EffectSpawner
+  effectPrefab: {fileID: 1478777543592028884, guid: 8a5f745e1fe05420c9381a0f7cee5e72, type: 3}
+  lifeTimeSeconds: 3
 --- !u!1001 &2372109062189174758
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2128014227023508137}
   - component: {fileID: 5985531138792941845}
   - component: {fileID: 8922705288162383622}
+  - component: {fileID: 3798815924349300716}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -130,3 +131,31 @@ MonoBehaviour:
   scaleDuration: 0.1
   scaleEase: 33
   meshRenderer: {fileID: 2128014227023508137}
+--- !u!114 &3798815924349300716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478777543592028884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 740684d9a52747d78db06046cee624b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnStartDoer
+  OnStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8922705288162383622}
+        m_TargetAssemblyTypeName: ExplosionEffect, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  delay: 0
