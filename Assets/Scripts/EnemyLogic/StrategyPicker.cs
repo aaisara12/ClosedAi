@@ -10,6 +10,7 @@ public static class StrategyPicker
         (15, () => new ChaseDownStrategy()),
         (10, () => new SuppressiveFireStrategy()),
         (8,  () => new CorneringAttackStrategy()),
+        (1,  () => new CommanderStrategy()),
     };
 
     public static List<Strategy> Assign(List<EnemyAgent> pool)
