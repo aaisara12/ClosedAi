@@ -128,7 +128,13 @@ public class MeleeAgent : EnemyAgent, IMovable
     private void OnAttackHit(Collider col)
     {
         if (col.CompareTag("Player"))
-            Debug.Log($"{name} hit the player");
+        {
+            var health = col.GetComponent<Health>();
+            if (health != null)
+            {
+                health.TakeDamage(1);
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()

@@ -42,6 +42,7 @@ public class PistolProjectile : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            collision.gameObject.GetComponent<Health>()?.TakeDamage(1);
             return;
         }
         Destroy(gameObject);
