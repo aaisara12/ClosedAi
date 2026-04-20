@@ -202,7 +202,7 @@ public class SignalManager : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, connectionRadius);
 
         List<SignalManager> candidates = hits
-            .Select(hit => hit.GetComponent<SignalManager>())
+            .Select(hit => hit.GetComponentInChildren<SignalManager>())
             .Where(sm => sm != null && sm != this)
             .ToList();
 

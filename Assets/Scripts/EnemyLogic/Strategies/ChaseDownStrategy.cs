@@ -25,6 +25,8 @@ public class ChaseDownStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting chasedown strategy");
+
         _meleeAgents  = _agents.Where(a => a.Type == EnemyType.Melee).ToList();
         _rangedAgents = _agents.Where(a => a.Type == EnemyType.Ranged).ToList();
         foreach (var a in _rangedAgents) _rangedTargets[a] = null;

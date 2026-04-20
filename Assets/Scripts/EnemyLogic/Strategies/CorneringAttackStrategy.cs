@@ -19,13 +19,13 @@ public class CorneringAttackStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting cornering strategy");
         _rusher = _agents[0];
         foreach (var a in _agents) _flankTargets[a] = null;
 
         foreach (var a in _agents)
         {
-            var s = a.GetComponentInChildren<SignalStatus>();
-            s?.SetIcon(SignalIcon.RedCircle);
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
         }
     }
 

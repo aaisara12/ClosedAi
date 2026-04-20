@@ -50,7 +50,7 @@ public class GroupBrainController : MonoBehaviour
         if (leader != _signalManager) return;
 
         var agents = allManagers
-            .Select(m => m.GetComponent<EnemyAgent>())
+            .Select(m => m.GetComponentInParent<EnemyAgent>())
             .Where(a => a != null)
             .ToList();
 

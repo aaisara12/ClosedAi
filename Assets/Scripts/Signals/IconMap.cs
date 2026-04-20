@@ -7,11 +7,20 @@ using UnityEngine;
 public class IconMap : ScriptableObject
 {
     [System.Serializable] class IconState {public SignalIcon icon; public Sprite sprite; public Color color;}
-    [SerializeField] private List<IconState> iconList = new List<IconState>();
-    public Dictionary<SignalIcon, (Sprite sprite, Color color)> map = new Dictionary<SignalIcon, (Sprite sprite, Color color)>();
-    void onEnable()
+    [SerializeField] private List<IconState> iconList;
+    private Dictionary<SignalIcon, (Sprite sprite, Color color)> map; 
+
+    public Dictionary<SignalIcon, (Sprite sprite, Color color)> Map
     {
-        Debug.Log("Initializing Dict");
+        get {if (map == null) initMap(); return map;}
+    }
+
+    void initMap()
+    {
+        Debug.Log("Initializing Map");
+        if (map != null) 
+            return;
+        map = new();
         foreach (var state in iconList)
             map.Add(state.icon, (state.sprite, state.color));
     }

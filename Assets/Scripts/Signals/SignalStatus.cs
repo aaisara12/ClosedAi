@@ -30,10 +30,12 @@ public class SignalStatus : MonoBehaviour
 
     public void SetIcon(SignalIcon s)
     {
-        if (iconMap.map.ContainsKey(s))
+        Debug.Log("Setting Icon?");
+        Debug.Log(iconMap.Map.Keys.Count);
+        if (iconMap.Map.ContainsKey(s))
         {
-            _statusSprite.sprite = iconMap.map[s].sprite;
-            _statusSprite.color = iconMap.map[s].color;
+            _statusSprite.sprite = iconMap.Map[s].sprite;
+            _statusSprite.color = iconMap.Map[s].color;
         }
     }
     public void ResetIcon()

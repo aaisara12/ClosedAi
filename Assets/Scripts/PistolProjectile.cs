@@ -28,8 +28,7 @@ public class PistolProjectile : MonoBehaviour
         Debug.Log($"Projectile hit: {collision.gameObject.name}");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if (collision.collider.TryGetComponent(out SignalManager signalManager))
-                signalManager.DisconnectFromAll();
+            collision.collider.GetComponentInChildren<SignalManager>()?.DisconnectFromAll();
         }
     }
 

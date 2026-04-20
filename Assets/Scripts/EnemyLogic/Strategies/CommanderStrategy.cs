@@ -22,9 +22,11 @@ public class CommanderStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting commander strategy");
+
         _commanderAgent = _agents[0] as CommanderAgent;
         _commanderNav = _commanderAgent.GetComponent<NavMeshAgent>();
-        _commanderSignal = _commanderAgent.GetComponent<SignalManager>();
+        _commanderSignal = _commanderAgent.GetComponentInChildren<SignalManager>();
         _commanderAgent.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Diamond);
 
         Assert.IsTrue(_commanderAgent != null);

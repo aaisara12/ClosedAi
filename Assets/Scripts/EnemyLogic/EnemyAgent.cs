@@ -28,7 +28,7 @@ public abstract class EnemyAgent : MonoBehaviour
     {
         PatrolOrigin = transform.position;
         GetComponent<Health>()?.OnDeath.AddListener(Die);
-        _signalManager = GetComponent<SignalManager>();
+        _signalManager = GetComponentInChildren<SignalManager>();
         if (_signalManager != null) _signalManager.OnFullyIsolated += HandleFullyIsolated;
     }
 

@@ -25,6 +25,7 @@ public abstract class Strategy
     // Pulls required agents from pool, assigns them, and calls OnStart. Returns consumed agents.
     public List<EnemyAgent> Consume(List<EnemyAgent> pool)
     {
+        Debug.Log("Consume");
         var consumed = new List<EnemyAgent>();
         foreach (var req in Requirements)
             consumed.AddRange(pool.Where(a => a.Type == req.Type && !consumed.Contains(a)).Take(req.Count));

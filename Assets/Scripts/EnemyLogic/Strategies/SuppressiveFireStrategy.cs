@@ -10,6 +10,7 @@ public class SuppressiveFireStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting suppressive fire strategy");
         foreach (var a in _agents) 
             a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
     }
