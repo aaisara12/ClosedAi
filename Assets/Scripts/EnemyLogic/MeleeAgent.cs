@@ -20,7 +20,7 @@ public class MeleeAgent : EnemyAgent, IMovable
     [SerializeField] private float _recoveryDuration = 0.1f;
 
     [Header("Attack Lunge")]
-    [SerializeField] private float _lungeDistance = 2f;
+    [SerializeField] private float _lungeDistance = 3f;
     [SerializeField] private AnimationCurve _lungeCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     public override EnemyType Type => EnemyType.Melee;
@@ -149,6 +149,8 @@ public class MeleeAgent : EnemyAgent, IMovable
         _targetPos = position;
         _hasTarget = true;
     }
+
+    public Vector3 GetDestination() => _nav.GetDestination();
 
     public void Stop()
     {
