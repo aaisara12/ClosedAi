@@ -348,20 +348,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4435020364638237730, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7720820149898204957, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5480275820197394333, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 1313925830}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
 --- !u!1 &601386238
@@ -673,106 +666,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4d5d0f5768315d4bb00b494768ee826, type: 3}
---- !u!1 &1313925829
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1313925830}
-  - component: {fileID: 1313925832}
-  - component: {fileID: 1313925831}
-  m_Layer: 3
-  m_Name: Cinemachine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1313925830
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313925829}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1767155240}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1313925831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313925829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseListener
-  ApplyAfter: 2
-  ChannelMask: 1
-  Gain: 1
-  Use2DDistance: 0
-  UseCameraSpace: 1
-  SignalCombinationMode: 0
-  ReactionSettings:
-    m_SecondaryNoise: {fileID: 0}
-    AmplitudeGain: 1
-    FrequencyGain: 1
-    Duration: 1
-    m_NoiseOffsets: {x: -165.09119, y: 431.40405, z: -840.6992}
---- !u!114 &1313925832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1313925829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
-  Priority:
-    Enabled: 0
-    m_Value: 0
-  OutputChannel: 1
-  StandbyUpdate: 2
-  m_StreamingVersion: 20241001
-  m_LegacyPriority: 0
-  Target:
-    TrackingTarget: {fileID: 0}
-    LookAtTarget: {fileID: 0}
-    CustomLookAtTarget: 0
-  Lens:
-    FieldOfView: 75.70004
-    OrthographicSize: 10
-    NearClipPlane: 0.1
-    FarClipPlane: 5000
-    Dutch: 0
-    ModeOverride: 0
-    PhysicalProperties:
-      GateFit: 2
-      SensorSize: {x: 21.946, y: 16.002}
-      LensShift: {x: 0, y: 0}
-      FocusDistance: 10
-      Iso: 200
-      ShutterSpeed: 0.005
-      Aperture: 16
-      BladeCount: 5
-      Curvature: {x: 2, y: 11}
-      BarrelClipping: 0.25
-      Anamorphism: 0
-  BlendHint: 0
 --- !u!1 &1601391521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,11 +959,6 @@ Transform:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9085772154138839536, guid: 60ca2efc0b9344378b75ceae1cb09765, type: 3}
   m_PrefabInstance: {fileID: 1224056252084599603}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1767155240 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5480275820197394333, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
-  m_PrefabInstance: {fileID: 567373531}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2076241618
 PrefabInstance:
