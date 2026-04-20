@@ -8,7 +8,11 @@ public static class StrategyPicker
     private static readonly (int priority, Func<Strategy> create)[] _registry =
     {
         (15, () => new ChaseDownStrategy()),
+        (14, () => new PhalanxStrategy()),
+        (12, () => new LeadingFireStrategy()),
+        (11, () => new CoveringFireStrategy()),
         (10, () => new SuppressiveFireStrategy()),
+        (9,  () => new RushdownStrategy()),
         (8,  () => new CorneringAttackStrategy()),
         (1,  () => new CommanderStrategy()),
     };

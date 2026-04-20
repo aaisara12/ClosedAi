@@ -162,27 +162,35 @@ public class GroupBrain : MonoBehaviour
 
         while (agent != null)
         {
+            while (agent != null && agent.IsIsolated)
+                yield return null;
+            if (agent == null) yield break;
+
             Vector3 destination = SamplePatrolPoint(agent.PatrolOrigin, agent.PatrolRadius);
             movable.MoveTo(destination);
             yield return null;
 
-            while (agent != null && !movable.HasReached)
+            while (agent != null && !movable.HasReached && !agent.IsIsolated)
                 yield return null;
 
             if (agent == null) yield break;
+            if (agent.IsIsolated) continue;
             movable.Stop();
 
             float scanDir = Random.value > 0.5f ? 1f : -1f;
             float scanElapsed = 0f;
-            while (agent != null && scanElapsed < agent.PatrolScanDuration)
+            while (agent != null && scanElapsed < agent.PatrolScanDuration && !agent.IsIsolated)
             {
                 agent.transform.Rotate(Vector3.up, scanDir * agent.PatrolScanSpeed * Time.deltaTime);
                 scanElapsed += Time.deltaTime;
                 yield return null;
             }
 
+            if (agent == null) yield break;
+            if (agent.IsIsolated) continue;
+
             float pauseElapsed = 0f;
-            while (agent != null && pauseElapsed < agent.PatrolPauseDuration)
+            while (agent != null && pauseElapsed < agent.PatrolPauseDuration && !agent.IsIsolated)
             {
                 pauseElapsed += Time.deltaTime;
                 yield return null;

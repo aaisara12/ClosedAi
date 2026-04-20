@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyNavigator), typeof(PlayerDetector))]
@@ -7,7 +8,8 @@ public class MeleeAgent : EnemyAgent, IMovable
     [Header("Attack")]
     [SerializeField] private float _attackCooldown = 2f;
     [SerializeField] private float _attackRange = 1.5f;
-    [SerializeField] private Collider _attackCollider;
+    [SerializeField] private Vector3 _hitBoxHalfExtents = new Vector3(1.5f, 0.8f, 1.5f);
+    [SerializeField] private LayerMask _hitMask = ~0;
 
     [Header("Spin Animation")]
     [SerializeField] private Transform _spinObject;
@@ -16,6 +18,10 @@ public class MeleeAgent : EnemyAgent, IMovable
     [SerializeField] private float _spinDuration = 0.28f;
     [SerializeField] private float _overshootAngle = 20f;
     [SerializeField] private float _recoveryDuration = 0.1f;
+
+    [Header("Attack Lunge")]
+    [SerializeField] private float _lungeDistance = 2f;
+    [SerializeField] private AnimationCurve _lungeCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     public override EnemyType Type => EnemyType.Melee;
     public float CooldownMultiplier { get; set; } = 1f;
@@ -30,7 +36,6 @@ public class MeleeAgent : EnemyAgent, IMovable
     {
         base.Awake();
         _nav = GetComponent<EnemyNavigator>();
-        if (_attackCollider != null) _attackCollider.enabled = false;
     }
 
     private void Update()
@@ -69,20 +74,35 @@ public class MeleeAgent : EnemyAgent, IMovable
         }
         angle = -_windupAngle;
 
-        // Spin: full 360 plus overshoot, collider active
-        if (_attackCollider != null) _attackCollider.enabled = true;
+        // Spin: full 360 plus overshoot, box hit detection active
+        // Spin: full 360 plus overshoot, box hit detection active + forward lunge
         float spinFrom = angle;
         float spinTo   = 360f + _overshootAngle;
         elapsed = 0f;
+        var hitIds = new HashSet<int>();
+        Vector3 lungeStart = transform.position;
+        Vector3 lungeEnd   = transform.position + transform.forward * _lungeDistance;
         while (elapsed < _spinDuration)
         {
             elapsed += Time.deltaTime;
-            angle = Mathf.Lerp(spinFrom, spinTo, Mathf.SmoothStep(0f, 1f, elapsed / _spinDuration));
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / _spinDuration);
+            angle = Mathf.Lerp(spinFrom, spinTo, t);
             ApplySpin(baseRot, angle);
+
+            // Move forward along the lunge arc
+            transform.position = Vector3.Lerp(lungeStart, lungeEnd, _lungeCurve.Evaluate(t));
+
+            Collider[] hits = Physics.OverlapBox(transform.position, _hitBoxHalfExtents, Quaternion.identity, _hitMask);
+            foreach (Collider col in hits)
+            {
+                if (col.transform.IsChildOf(transform)) continue;
+                if (!hitIds.Add(col.GetInstanceID())) continue;
+                OnAttackHit(col);
+            }
+
             yield return null;
         }
         angle = spinTo;
-        if (_attackCollider != null) _attackCollider.enabled = false;
 
         // Recovery: ease back from overshoot to full 360 (= 0)
         float recoverFrom = angle;
@@ -105,11 +125,17 @@ public class MeleeAgent : EnemyAgent, IMovable
         _spinObject.localRotation = baseRotation * Quaternion.AngleAxis(angle, Vector3.up);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnAttackHit(Collider col)
     {
-        if (!_isAttacking) return;
-        if (other.CompareTag("Player"))
+        if (col.CompareTag("Player"))
             Debug.Log($"{name} hit the player");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1f, 0.2f, 0.2f, 0.4f);
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, Quaternion.identity, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, _hitBoxHalfExtents * 2f);
     }
 
     public override void OnPlayerSpotted(Vector3 position)

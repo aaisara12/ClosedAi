@@ -25,9 +25,14 @@ public class ChaseDownStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting chasedown strategy");
+
         _meleeAgents  = _agents.Where(a => a.Type == EnemyType.Melee).ToList();
         _rangedAgents = _agents.Where(a => a.Type == EnemyType.Ranged).ToList();
         foreach (var a in _rangedAgents) _rangedTargets[a] = null;
+
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
     }
 
     public override void Tick(Vector3 playerPos, bool playerSpotted)
@@ -96,6 +101,9 @@ public class ChaseDownStrategy : Strategy
 
     public override void End()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
+
         foreach (var agent in _meleeAgents ?? new List<EnemyAgent>())
             (agent as IMovable)?.Stop();
         foreach (var agent in _rangedAgents ?? new List<EnemyAgent>())

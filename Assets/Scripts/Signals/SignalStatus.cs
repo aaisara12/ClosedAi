@@ -7,34 +7,40 @@ public enum SignalIcon
     Circle,
     Triangle,
     Square,
-    Diamond
+    Diamond,
+    RedCircle
 }
 
+
+// See IconMap.cs for global icon defs
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class SignalStatus : MonoBehaviour
 {
-    [System.Serializable] class IconState {public SignalIcon icon; public Sprite sprite; public Color color;}
+    [SerializeField] IconMap iconMap;
+    // [System.Serializable] class IconState {public SignalIcon icon; public Sprite sprite; public Color color;}
 
-    [SerializeField] private List<IconState> iconList = new List<IconState>();
-    private Dictionary<SignalIcon, (Sprite sprite, Color color)> iconMap;
+    // [SerializeField] private List<IconState> iconList = new List<IconState>();
+    // private Dictionary<SignalIcon, (Sprite sprite, Color color)> iconMap;
     private SpriteRenderer _statusSprite;
     private void Start()
     {
         _statusSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
-    private void setIcon(SignalIcon s)
+    public void SetIcon(SignalIcon s)
     {
-        if (iconMap.ContainsKey(s))
+        Debug.Log("Setting Icon?");
+        Debug.Log(iconMap.Map.Keys.Count);
+        if (iconMap.Map.ContainsKey(s))
         {
-            _statusSprite.sprite = iconMap[s].sprite;
-            _statusSprite.color = iconMap[s].color;
+            _statusSprite.sprite = iconMap.Map[s].sprite;
+            _statusSprite.color = iconMap.Map[s].color;
         }
     }
-    private void resetIcon()
+    public void ResetIcon()
     {
-        setIcon(SignalIcon.Circle);
+        SetIcon(SignalIcon.Circle);
     }
 
 }

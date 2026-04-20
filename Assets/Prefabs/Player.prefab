@@ -5508,8 +5508,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MeleeAttack
   _cameraTransform: {fileID: 5480275820197394333}
-  _range: 2
-  _radius: 0.6
+  _boxHalfExtents: {x: 0.6, y: 0.8, z: 0.8}
+  _boxOffset: 0.8
   _cooldown: 0.5
   _hitMask:
     serializedVersion: 2
@@ -5563,12 +5563,12 @@ MonoBehaviour:
   _swordArm: {fileID: 4464187058942355549}
   _gunAnimator: {fileID: 6027768681363128486}
   _swapDuration: 0.18
-  _hideOffset: {x: 0, y: -0.5, z: 0}
+  _hideOffset: {x: 0, y: -0.95, z: 0}
   _recoilAngle: 6
   _recoilDuration: 0.05
   _recoilRecovery: 0.12
   _reloadAnimDuration: 3.35
-  _swordDipDuration: 0.1
+  _swordDipDuration: 0.15
 --- !u!1 &7792078483945353452
 GameObject:
   m_ObjectHideFlags: 0

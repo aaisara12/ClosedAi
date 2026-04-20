@@ -14,7 +14,7 @@ public class CommanderStrategy : Strategy
     };
 
     private const float PositioningRadius = 10f;
-    private const int   CandidateCount    = 6;
+    private const int   PositionTries    = 6;
 
     private CommanderAgent _commanderAgent;
     private NavMeshAgent _commanderNav;
@@ -22,9 +22,13 @@ public class CommanderStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting commander strategy");
+
         _commanderAgent = _agents[0] as CommanderAgent;
         _commanderNav = _commanderAgent.GetComponent<NavMeshAgent>();
-        _commanderSignal = _commanderAgent.GetComponent<SignalManager>();
+        _commanderSignal = _commanderAgent.GetComponentInChildren<SignalManager>();
+        _commanderAgent.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Diamond);
+
         Assert.IsTrue(_commanderAgent != null);
         Assert.IsTrue(_commanderNav != null);
     }
@@ -50,7 +54,7 @@ public class CommanderStrategy : Strategy
 
     private Vector3 FindHiddenPosition(Vector3 pos, Vector3 fallback)
     {
-        for (int i = 0; i < CandidateCount; i++)
+        for (int i = 0; i < PositionTries; i++)
         {
             float angle     = Random.Range(0f, 360f);
             Vector3 offset   = Quaternion.Euler(0f, angle, 0f) * Vector3.forward * PositioningRadius;
@@ -74,6 +78,7 @@ public class CommanderStrategy : Strategy
 
     public override void End()
     {
+        _commanderAgent.GetComponentInChildren<SignalStatus>()?.ResetIcon();
         (_commanderAgent as IMovable)?.Stop();
     }
 }

@@ -105,6 +105,14 @@ public class SignalManager : MonoBehaviour
         return true;
     }
 
+    public void DisconnectFromAll()
+    {
+        foreach(Signal s in new List<Signal>(_connections))
+        {
+            s.Break();
+        }
+    }
+
     /// <summary>
     /// Called by a Signal when it is broken (e.g. destroyed by the player).
     /// </summary>
@@ -194,7 +202,7 @@ public class SignalManager : MonoBehaviour
         Collider[] hits = Physics.OverlapSphere(transform.position, connectionRadius);
 
         List<SignalManager> candidates = hits
-            .Select(hit => hit.GetComponent<SignalManager>())
+            .Select(hit => hit.GetComponentInChildren<SignalManager>())
             .Where(sm => sm != null && sm != this)
             .ToList();
 
