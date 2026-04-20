@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -25,7 +25,12 @@ public class PistolProjectile : MonoBehaviour
 
     private void OnProjectileHit(Collision collision)
     {
-        // Add hit effects, damage, etc. here
+        Debug.Log($"Projectile hit: {collision.gameObject.name}");
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            if (collision.collider.TryGetComponent(out SignalManager signalManager))
+                signalManager.DisconnectFromAll();
+        }
     }
 
     private void OnEnemyProjectileHit(Collider other)

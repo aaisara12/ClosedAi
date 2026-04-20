@@ -105,6 +105,14 @@ public class SignalManager : MonoBehaviour
         return true;
     }
 
+    public void DisconnectFromAll()
+    {
+        foreach(Signal s in new List<Signal>(_connections))
+        {
+            s.Break();
+        }
+    }
+
     /// <summary>
     /// Called by a Signal when it is broken (e.g. destroyed by the player).
     /// </summary>
