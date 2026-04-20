@@ -32,14 +32,25 @@ public class PistolProjectile : MonoBehaviour
         }
     }
 
-    private void OnEnemyProjectileHit(Collider other)
+    private void OnProjectileHit(Collider collision)
     {
-        
+        Debug.Log($"Projectile hit: {collision.gameObject.name}");
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            collision.GetComponent<Collider>().GetComponentInChildren<SignalManager>()?.DisconnectFromAll();
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            return;
+        }
+        Destroy(gameObject);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
-        OnEnemyProjectileHit(other);
-        Destroy(gameObject);
+        OnProjectileHit(other);
+        
     }
 }
