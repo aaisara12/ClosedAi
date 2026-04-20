@@ -110,8 +110,11 @@ public class PlayerController : MonoBehaviour
 
     private bool CanStandUp()
     {
-        Vector3 top = transform.position + _standCenter + Vector3.up * (_standHeight * 0.5f - _col.radius);
-        return !Physics.SphereCast(top, _col.radius, Vector3.up, out _,
+        // Cast from the top sphere of the crouching capsule upward by the height difference.
+        // This checks exactly the space the collider needs to expand into when standing.
+        float crouchTopY = _standBottom + _crouchHeight - _col.radius;
+        Vector3 castOrigin = transform.position + new Vector3(_standCenter.x, crouchTopY, _standCenter.z);
+        return !Physics.SphereCast(castOrigin, _col.radius, Vector3.up, out _,
             _standHeight - _crouchHeight, _groundMask, QueryTriggerInteraction.Ignore);
     }
 

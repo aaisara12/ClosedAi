@@ -65,6 +65,7 @@ public class SwordSlashEffect : MonoBehaviour
 
         // Create GameObject
         GameObject go = new GameObject("SwordSlash_Instance");
+        go.layer = LayerMask.NameToLayer("UI");
         go.hideFlags = HideFlags.DontSave;
 
         MeshFilter   mf = go.AddComponent<MeshFilter>();
