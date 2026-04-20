@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 461429537}
   - component: {fileID: 461429536}
   - component: {fileID: 461429535}
-  - component: {fileID: 461429534}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -214,7 +213,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 5.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3794623432740298794}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 20.413, y: 0, z: 0}
 --- !u!114 &461429533
@@ -261,33 +261,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!114 &461429534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461429529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6774749d8e47f2ae216488764002a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SwordSlashEffect
-  _baseMaterial: {fileID: 2100000, guid: 69e7a5e2d2c9f4c768d7e3ffaa898980, type: 2}
-  _arcAngleDeg: 252
-  _arcInnerRadius: 1.25
-  _arcOuterRadius: 8.21
-  _arcSegments: 20
-  _slashAngleDeg: -21.7
-  _duration: 0.15
-  _spawnDistance: 1.47
-  _coreColor: {r: 0, g: 0.22272372, b: 1, a: 1}
-  _midColor: {r: 0.6, g: 0.85, b: 1, a: 1}
-  _outerColor: {r: 0.1, g: 0.3, b: 0.9, a: 1}
-  _emissiveBoost: 2
-  _glowWidth: 1.07
-  _glowFalloff: 2.5
-  _sweepSharpness: 11.78
 --- !u!114 &461429535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,8 +280,7 @@ MonoBehaviour:
   _hitMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  _slashEffect: {fileID: 461429534}
-  SlashAngle: 0
+  _slashEffect: {fileID: 3794623432740298795}
 --- !u!114 &461429536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -961,6 +933,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b689d4b4c58410aaae790625f8d869f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
+--- !u!1001 &3794623432740298793
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 461429532}
+    m_Modifications:
+    - target: {fileID: 2442106808514374441, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_Name
+      value: SlashEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+--- !u!4 &3794623432740298794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+  m_PrefabInstance: {fileID: 3794623432740298793}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3794623432740298795 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9117956304121988776, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+  m_PrefabInstance: {fileID: 3794623432740298793}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6774749d8e47f2ae216488764002a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordSlashEffect
 --- !u!1001 &8380454379041133409
 PrefabInstance:
   m_ObjectHideFlags: 0
