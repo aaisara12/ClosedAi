@@ -680,6 +680,63 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+--- !u!1001 &554406208
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2442106808514374441, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_Name
+      value: SlashEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.11915
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.60038
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.78897
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7274610364505257354, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
 --- !u!1 &727427881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,6 +1526,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 890c58fdca863c040877ab0a99b4ab01, type: 3}
+--- !u!114 &1496330545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9117956304121988776, guid: a48da8e8498ec4075a3c5ca4554f142a, type: 3}
+  m_PrefabInstance: {fileID: 554406208}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f6774749d8e47f2ae216488764002a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwordSlashEffect
 --- !u!1 &1753915570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1842,6 +1910,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2775667952278784467, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
+      propertyPath: _slashEffect
+      value: 
+      objectReference: {fileID: 1496330545}
+    - target: {fileID: 2775667952278784467, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
+      propertyPath: maxSlashAngle
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775667952278784467, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
+      propertyPath: minSlashAngle
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 3201839138865082775, guid: ae6db3827ff474b4f94cc75a9a6e1dab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -1966,3 +2046,4 @@ SceneRoots:
   - {fileID: 1489111542}
   - {fileID: 1003332571}
   - {fileID: 1441498399}
+  - {fileID: 554406208}

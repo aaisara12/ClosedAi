@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PlayerController))]
 public class MeleeAttack : MonoBehaviour
@@ -11,6 +12,8 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] private LayerMask _hitMask = ~0;
     [SerializeField] private SwordSlashEffect _slashEffect;
 
+    public float minSlashAngle = 90f;
+    public float maxSlashAngle = 100f;
     public event Action OnAttacked;
 
     private PlayerController _player;
@@ -39,7 +42,7 @@ public class MeleeAttack : MonoBehaviour
     {
         _nextAttackTime = Time.time + _cooldown;
         OnAttacked?.Invoke();
-        _slashEffect?.Spawn(_cameraTransform, UnityEngine.Random.Range(0, 360f));
+        _slashEffect?.Spawn(_cameraTransform, UnityEngine.Random.Range(minSlashAngle, maxSlashAngle));
 
         Vector3 center = _cameraTransform.position + _cameraTransform.forward * _boxOffset;
         Collider[] hits = Physics.OverlapBox(center, _boxHalfExtents, _cameraTransform.rotation, _hitMask);
