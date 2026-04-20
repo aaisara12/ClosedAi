@@ -13,34 +13,52 @@ public class RushdownStrategy : Strategy
     private const float SpeedMultiplier = 2f;
 
     private readonly Dictionary<EnemyAgent, float> _originalSpeeds = new();
+    private readonly Dictionary<EnemyAgent, bool>  _originalAutoBraking = new();
 
     public override void OnStart()
     {
+        Debug.Log("Starting Rushdown strategy");
+
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
         foreach (var agent in _agents)
         {
-            Debug.Log("Starting Rushdown strategy");
-
             var nav = agent.GetComponent<NavMeshAgent>();
             if (nav == null) continue;
-            _originalSpeeds[agent] = nav.speed;
-            nav.speed *= SpeedMultiplier;
+            _originalSpeeds[agent]      = nav.speed;
+            _originalAutoBraking[agent] = nav.autoBraking;
+            nav.speed      *= SpeedMultiplier;
+            nav.autoBraking = false;
         }
     }
 
+
+    private readonly float delta = 0.5f;
     public override void Tick(Vector3 playerPos, bool playerSpotted)
     {
         foreach (var agent in _agents)
-            (agent as IMovable)?.MoveTo(playerPos);
+        {
+            var movable = agent as IMovable;
+            if (movable == null)
+                return;
+            else if ((playerPos - movable.GetDestination()).sqrMagnitude > delta)
+                movable.MoveTo(playerPos);
+        }
     }
 
     public override void End()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
         foreach (var agent in _agents)
         {
             (agent as IMovable)?.Stop();
             var nav = agent.GetComponent<NavMeshAgent>();
-            if (nav != null && _originalSpeeds.TryGetValue(agent, out float original))
+            if (nav == null) continue;
+            if (_originalSpeeds.TryGetValue(agent, out float original))
                 nav.speed = original;
+            if (_originalAutoBraking.TryGetValue(agent, out bool braking))
+                nav.autoBraking = braking;
         }
     }
 }

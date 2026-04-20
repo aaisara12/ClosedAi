@@ -14,6 +14,7 @@ public class DashController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float _momentumRetain = 0.25f;
     [SerializeField] private LayerMask _dashHitMask = ~0;
+    [SerializeField] private float _dashCooldown = 1f;
 
     private PlayerController _player;
     private Rigidbody _rb;
@@ -21,6 +22,7 @@ public class DashController : MonoBehaviour
     private float _currentFOV;
     private float _targetFOV;
     private bool _isDashing;
+    private float _nextDashTime;
 
     private void Awake()
     {
@@ -37,7 +39,7 @@ public class DashController : MonoBehaviour
 
     private void Update()
     {
-        if (_player.DashPressed() && _player.CanMove && !_isDashing)
+        if (_player.DashPressed() && _player.CanMove && !_isDashing && Time.time >= _nextDashTime)
             StartCoroutine(DoDash());
 
         if (_camera != null)
@@ -52,6 +54,8 @@ public class DashController : MonoBehaviour
         _isDashing = true;
         _player.CanMove = false;
         _rb.useGravity = false;
+
+        AudioSystem.Play(AudioSystem.Sound.Dash);
 
         Vector3 dashDir = _cameraTransform.forward.normalized;
 
@@ -87,6 +91,7 @@ public class DashController : MonoBehaviour
         _rb.linearVelocity = dashDir * dashSpeed * _momentumRetain;
         _rb.useGravity = true;
 
+        _nextDashTime = Time.time + _dashCooldown;
         _targetFOV = _camera != null ? _camera.BaseFOV : 90f;
         _isDashing = false;
         _player.CanMove = true;

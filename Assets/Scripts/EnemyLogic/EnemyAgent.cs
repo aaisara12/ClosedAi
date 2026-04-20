@@ -11,7 +11,7 @@ public abstract class EnemyAgent : MonoBehaviour
     [SerializeField] private float _patrolScanSpeed = 60f;
 
     [Header("Isolation")]
-    [SerializeField] private float _isolationDuration = 3f;
+    [SerializeField] private float _isolationDuration = 4f;
 
     public abstract EnemyType Type { get; }
     public GroupBrain Brain { get; set; }
@@ -49,9 +49,28 @@ public abstract class EnemyAgent : MonoBehaviour
         if (this is IMovable movable) movable.Stop();
 
         var detector = GetComponent<PlayerDetector>();
+        var model = GetComponent<MeshRenderer>();
+        float elapsed = 0f;
+
+        Quaternion startRot = model.transform.localRotation;
+        Quaternion flippedRot = startRot * Quaternion.Euler(180f, 0f, 0f);
+
         if (detector != null) detector.enabled = false;
 
-        yield return new WaitForSeconds(_isolationDuration);
+        if (model != null)
+        {
+            while (elapsed < _isolationDuration)
+            {
+                model.transform.localRotation = 
+                    Quaternion.LerpUnclamped(startRot, flippedRot, Mathf.Sin((elapsed / _isolationDuration) * (4 * Mathf.PI)));
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(_isolationDuration);
+        }
 
         IsIsolated = false;
         if (detector != null) detector.enabled = true;
@@ -60,6 +79,7 @@ public abstract class EnemyAgent : MonoBehaviour
     private void Die()
     {
         Brain?.RemoveMember(this);
+        AudioSystem.Play(AudioSystem.Sound.EnemyDeath);
         Destroy(gameObject);
     }
 

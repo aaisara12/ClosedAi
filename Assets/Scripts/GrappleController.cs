@@ -86,6 +86,7 @@ public class GrappleController : MonoBehaviour
         _hookPos = Vector3.MoveTowards(_hookPos, _grapplePoint, _hookTravelSpeed * Time.deltaTime);
         if (Vector3.Distance(_hookPos, _grapplePoint) < 0.05f)
         {
+            AudioSystem.Play(AudioSystem.Sound.Grapple);
             _hookPos = _grapplePoint;
             _hookTraveling = false;
 

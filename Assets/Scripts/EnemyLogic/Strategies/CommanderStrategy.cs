@@ -13,7 +13,9 @@ public class CommanderStrategy : Strategy
         new StrategyRequirement { Type = EnemyType.Commander, Count = 1 },
     };
 
-    private const float PositioningRadius = 10f;
+
+    private int _losMask;
+    private const float PositioningRadius = 20f;
     private const int   PositionTries    = 6;
 
     private CommanderAgent _commanderAgent;
@@ -28,6 +30,7 @@ public class CommanderStrategy : Strategy
         _commanderNav = _commanderAgent.GetComponent<NavMeshAgent>();
         _commanderSignal = _commanderAgent.GetComponentInChildren<SignalManager>();
         _commanderAgent.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Diamond);
+        _losMask = ~LayerMask.GetMask("Enemy");
 
         Assert.IsTrue(_commanderAgent != null);
         Assert.IsTrue(_commanderNav != null);
@@ -36,9 +39,9 @@ public class CommanderStrategy : Strategy
     public override void Tick(Vector3 playerPos, bool playerSpotted)
     {
         // run away from player (try going somewhere w/o LOS)
-        if (HasLOS(_commanderAgent.transform.position, playerPos) && 
-            HasLOS(_commanderNav.destination, playerPos))
+        if (HasLOS(_commanderAgent.transform.position, playerPos) && HasLOS(_commanderNav.destination, playerPos)) 
         {
+            Debug.Log("Trying to move to hidden position");
             _commanderAgent.MoveTo(FindHiddenPosition(_commanderAgent.transform.position, _commanderAgent.transform.position));
         }
 
@@ -72,8 +75,10 @@ public class CommanderStrategy : Strategy
     {
         Vector3 dir  = to - from;
         float   dist = dir.magnitude;
-        Vector3 origin = from + dir.normalized * 0.3f;
-        return !Physics.Raycast(origin, dir.normalized, Mathf.Max(0f, dist - 0.3f));
+        float   offset = 1f;
+        Vector3 origin = from + dir.normalized * offset;
+        Debug.DrawLine(origin, origin + dir.normalized * Mathf.Max(0f, dist - (offset * 2f)));
+        return !Physics.Raycast(origin, dir.normalized, Mathf.Max(0f, dist - (offset * 2f)), _losMask);
     }
 
     public override void End()

@@ -18,10 +18,6 @@ public enum SignalIcon
 public class SignalStatus : MonoBehaviour
 {
     [SerializeField] IconMap iconMap;
-    // [System.Serializable] class IconState {public SignalIcon icon; public Sprite sprite; public Color color;}
-
-    // [SerializeField] private List<IconState> iconList = new List<IconState>();
-    // private Dictionary<SignalIcon, (Sprite sprite, Color color)> iconMap;
     private SpriteRenderer _statusSprite;
     private void Start()
     {
@@ -30,7 +26,7 @@ public class SignalStatus : MonoBehaviour
 
     public void SetIcon(SignalIcon s)
     {
-        Debug.Log("Setting Icon?");
+        Debug.Log("Setting Icon");
         Debug.Log(iconMap.Map.Keys.Count);
         if (iconMap.Map.ContainsKey(s))
         {

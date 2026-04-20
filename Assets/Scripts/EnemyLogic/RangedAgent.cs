@@ -28,6 +28,8 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
     }
 
     public void MoveTo(Vector3 position) => _nav.MoveTo(position);
+
+    public Vector3 GetDestination() => _nav.GetDestination();
     public void Stop() => _nav.Stop();
     public bool HasReached => _nav.HasReached;
 
@@ -56,6 +58,7 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
         float elapsed = 0f;
         while (elapsed < _burstDuration)
         {
+            AudioSystem.Play(AudioSystem.Sound.EnemyGun);
             ShootProjectile(_currentTarget);
             yield return new WaitForSeconds(_burstFireRate);
             elapsed += _burstFireRate;

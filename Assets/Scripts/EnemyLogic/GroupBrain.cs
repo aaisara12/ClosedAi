@@ -62,6 +62,7 @@ public class GroupBrain : MonoBehaviour
 
         if (_state == State.Inactive)
         {
+            AudioSystem.Play(AudioSystem.Sound.EnemySuspicious);
             _state = State.Confirming;
             _confirmAccumulated = 0f;
         }
@@ -114,6 +115,7 @@ public class GroupBrain : MonoBehaviour
 
     private void EnterExecuting()
     {
+        AudioSystem.Play(AudioSystem.Sound.EnemyAggressive);
         _state = State.Executing;
         _lossAccumulated = 0f;
         StopPatrol();
