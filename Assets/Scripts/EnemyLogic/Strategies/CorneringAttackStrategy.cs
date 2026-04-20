@@ -21,6 +21,12 @@ public class CorneringAttackStrategy : Strategy
     {
         _rusher = _agents[0];
         foreach (var a in _agents) _flankTargets[a] = null;
+
+        foreach (var a in _agents)
+        {
+            var s = a.GetComponentInChildren<SignalStatus>();
+            s?.SetIcon(SignalIcon.RedCircle);
+        }
     }
 
     public override void Tick(Vector3 playerPos, bool playerSpotted)
@@ -97,6 +103,8 @@ public class CorneringAttackStrategy : Strategy
 
     public override void End()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
         foreach (var agent in _agents)
             (agent as IMovable)?.Stop();
     }

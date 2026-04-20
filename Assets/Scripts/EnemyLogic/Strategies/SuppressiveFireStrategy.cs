@@ -8,7 +8,11 @@ public class SuppressiveFireStrategy : Strategy
         new StrategyRequirement { Type = EnemyType.Ranged, Count = 2 }
     };
 
-    public override void OnStart() { }
+    public override void OnStart()
+    {
+        foreach (var a in _agents) 
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
+    }
 
     public override void Tick(Vector3 playerPos, bool playerSpotted)
     {
@@ -33,5 +37,9 @@ public class SuppressiveFireStrategy : Strategy
         return !Physics.Raycast(origin, dir.normalized, Mathf.Max(0f, dist - 0.3f));
     }
 
-    public override void End() { }
+    public override void End()
+    {
+        foreach (var a in _agents) 
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
+    }
 }

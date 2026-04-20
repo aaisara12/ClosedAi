@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-[RequireComponent(typeof(SignalManager), typeof(EnemyAgent))]
+[RequireComponent(typeof(EnemyAgent))]
 public class GroupBrainController : MonoBehaviour
 {
     private SignalManager _signalManager;
@@ -12,7 +13,8 @@ public class GroupBrainController : MonoBehaviour
 
     private void Awake()
     {
-        _signalManager = GetComponent<SignalManager>();
+        _signalManager = GetComponentInChildren<SignalManager>();
+        Assert.IsTrue(_signalManager != null);
         _agent = GetComponent<EnemyAgent>();
     }
 
