@@ -3,6 +3,7 @@ using UnityEngine;
 public class SuppressiveFireStrategy : Strategy
 {
     public override int Priority => 10;
+    private int _losMask;
     public override StrategyRequirement[] Requirements => new[]
     {
         new StrategyRequirement { Type = EnemyType.Ranged, Count = 2 }
@@ -11,6 +12,9 @@ public class SuppressiveFireStrategy : Strategy
     public override void OnStart()
     {
         Debug.Log("Starting suppressive fire strategy");
+
+
+        _losMask = ~LayerMask.GetMask("Enemy");
         foreach (var a in _agents) 
             a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
     }
@@ -30,12 +34,13 @@ public class SuppressiveFireStrategy : Strategy
     }
 
     // Offsets origin slightly toward target to clear the agent's own collider
+
     private bool HasLOS(Vector3 from, Vector3 to)
     {
-        Vector3 dir  = to - from;
-        float   dist = dir.magnitude;
-        Vector3 origin = from + dir.normalized * 0.3f;
-        return !Physics.Raycast(origin, dir.normalized, Mathf.Max(0f, dist - 0.3f));
+        Vector3 origin = from + Vector3.up * 1.5f;
+        Vector3 dir    = to - origin;
+        return Physics.Raycast(origin, dir.normalized, out RaycastHit hit, dir.magnitude, _losMask)
+               && hit.collider.CompareTag("Player");
     }
 
     public override void End()

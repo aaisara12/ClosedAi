@@ -41,7 +41,7 @@ public class LeadingFireStrategy : Strategy
         var movable = agent as IMovable;
         var shooter  = agent as IShooter;
 
-        if (HasLOS(agent, playerPos))
+        if (HasLOS(agent.transform.position, playerPos))
         {
             movable?.Stop();
             Vector3 aimPos = PredictedPosition(playerPos, leadTime);
@@ -54,10 +54,10 @@ public class LeadingFireStrategy : Strategy
         }
     }
 
-    private bool HasLOS(EnemyAgent agent, Vector3 playerPos)
+    private bool HasLOS(Vector3 from, Vector3 to)
     {
-        Vector3 origin = agent.transform.position + Vector3.up * 1.5f;
-        Vector3 dir    = playerPos - origin;
+        Vector3 origin = from + Vector3.up * 1.5f;
+        Vector3 dir    = to - origin;
         return Physics.Raycast(origin, dir.normalized, out RaycastHit hit, dir.magnitude, _losMask)
                && hit.collider.CompareTag("Player");
     }
