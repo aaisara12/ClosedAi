@@ -463,10 +463,9 @@ MonoBehaviour:
   CurrentHealth: 1
   MaxHealth: 1
   canRegen: 0
-  canShield: 1
   _shieldCD: 1
   Shield: {fileID: 3860988040876447394}
-  hasShield: 1
+  hasShield: 0
   regenDelay: 5
   regenDuration: 2
 --- !u!114 &6025505775444380541
