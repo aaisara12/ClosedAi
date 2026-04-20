@@ -29,11 +29,13 @@ public class SmokeArea : MonoBehaviour
 
     private void OnEntityEntered(Collider col)
     {
-        // Add smoke effects, vision obstruction, slow, etc. here
+        if (col.CompareTag("Player"))
+            AudioSystem.SetLowpass(true);
     }
 
     private void OnEntityExited(Collider col)
     {
-        // Undo effects here
+        if (col.CompareTag("Player"))
+            AudioSystem.SetLowpass(false);
     }
 }

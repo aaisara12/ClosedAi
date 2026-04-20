@@ -2301,6 +2301,9 @@ MonoBehaviour:
   library: {fileID: 11400000, guid: 9aff9cf3ddfcde340b5dcba82221a48e, type: 2}
   initialPoolSize: 5
   unusedLifetime: 10
+  _mixer: {fileID: 24100000, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  _lowpassOn: 1500
+  _lowpassOff: 10000
 --- !u!4 &1619681920
 Transform:
   m_ObjectHideFlags: 0

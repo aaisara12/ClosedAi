@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections.Generic;
 
 public class AudioSystem : MonoBehaviour
@@ -24,6 +25,11 @@ public class AudioSystem : MonoBehaviour
     public AudioLibrary library;
     public int initialPoolSize = 5;
     public float unusedLifetime = 10f;
+
+    [Header("Lowpass Filter")]
+    [SerializeField] private AudioMixer _mixer;
+    [SerializeField] private float _lowpassOn  = 0.3f;
+    [SerializeField] private float _lowpassOff = 0.7f;
 
     public static AudioSystem Instance;
 
@@ -110,6 +116,14 @@ public class AudioSystem : MonoBehaviour
                 pool.RemoveAt(i);
             }
         }
+    }
+
+    // ---------------- LOWPASS -------------------
+
+    public static void SetLowpass(bool enabled)
+    {
+        if (Instance == null || Instance._mixer == null) return;
+        Instance._mixer.SetFloat("lowpass", enabled ? Instance._lowpassOn : Instance._lowpassOff);
     }
 
     // ---------------- ONE SHOT ----------------
