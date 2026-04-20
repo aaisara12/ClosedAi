@@ -94,7 +94,6 @@ public class Health : MonoBehaviour
     {
         if (hasShield)
         {
-            hasShield = false;
             return;
         }
 
