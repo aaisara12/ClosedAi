@@ -1662,7 +1662,7 @@ PrefabInstance:
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelWon.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 9ec0a9d2a4a8349779518689a867c29d, type: 2}
+      objectReference: {fileID: 583867323}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelLost.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1677,7 +1677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelWon.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RequestScene
+      value: PlaySequence
       objectReference: {fileID: 0}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelLost.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1697,7 +1697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelWon.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SceneTransitionRequester, Assembly-CSharp
+      value: ActionSequencer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelLost.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1768,6 +1768,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
+--- !u!114 &583867323 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6375271717152137501, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
+  m_PrefabInstance: {fileID: 583867322}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f4c726b12c4fd29674b4ef879cff83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActionSequencer
 --- !u!1 &584809524
 GameObject:
   m_ObjectHideFlags: 0
