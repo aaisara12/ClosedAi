@@ -31,7 +31,7 @@ public class MeleeAttack : MonoBehaviour
     private void Update()
     {
         bool pistolActive = _pistol != null && _pistol.IsEquipped;
-        if (!pistolActive && Time.time >= _nextAttackTime)
+        if (_input.Player.Fire.WasPressedThisFrame() && !pistolActive && Time.time >= _nextAttackTime)
             DoMelee();
     }
 
