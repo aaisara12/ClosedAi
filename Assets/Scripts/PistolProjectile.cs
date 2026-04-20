@@ -1,4 +1,5 @@
 
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -42,7 +43,21 @@ public class PistolProjectile : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
+            return;
+        }
+        Destroy(gameObject);
+    }
+
+    private void OnEnemyProjectileHit(Collider collision)
+    {
+        Debug.Log($"Enemy projectile hit: {collision.gameObject.name}");
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
             collision.gameObject.GetComponent<Health>()?.TakeDamage(1);
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
             return;
         }
         Destroy(gameObject);
@@ -51,6 +66,10 @@ public class PistolProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (gameObject.CompareTag("Enemy")){
+            OnEnemyProjectileHit(other);
+            return;
+        }
         OnProjectileHit(other);
         
     }
