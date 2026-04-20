@@ -248,4 +248,6 @@ public class SignalManager : MonoBehaviour
         // After coming back online, scan for new connections
         TryScanAndConnect();
     }
+
+    public bool IsDisabled => _isDisabled;
 }

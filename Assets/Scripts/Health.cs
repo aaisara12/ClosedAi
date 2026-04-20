@@ -1,6 +1,7 @@
 #nullable enable
 
 using UnityEngine;
+using System.Collections;
 using UnityEngine.Events;
 
 public class Health : MonoBehaviour
@@ -20,10 +21,13 @@ public class Health : MonoBehaviour
 
     public int CurrentHealth = 3;
     public int MaxHealth = 3;
-    public bool hasShield = false;
     public bool canRegen = false;
 
+    [SerializeField] public bool canShield = false;
+    [SerializeField] private float _shieldCD = .5f;
     public GameObject Shield;
+    public bool hasShield = false;
+    private bool _isShielding = false;
     
     [Header("Regen Settings")]
     [Tooltip("Seconds after last damage before regeneration begins.")]
@@ -39,16 +43,38 @@ public class Health : MonoBehaviour
 
     private float _timeSinceLastDamage = 0f;
     private bool  _regenActive = false;
+    private SignalManager signal;
 
     // -------------------------------------------------------------------------
     //  Unity lifecycle
     // -------------------------------------------------------------------------
+
+    private void Start()
+    {
+        signal = GetComponentInChildren<SignalManager>();
+        if (canShield && signal != null)
+        {
+            hasShield = true;
+            signal.OnFullyIsolated += HandleFullyIsolated;
+        }
+    }
+
+    private void HandleFullyIsolated()
+    {
+        hasShield = false;
+    }
+
 
     private void Update()
     {
         if (Shield != null)
         {
             Shield.SetActive(hasShield);
+        }
+
+        if (canShield && !_isShielding && !hasShield)
+        {
+            StartCoroutine(shieldCoro());
         }
         
         if (CurrentHealth >= MaxHealth)
@@ -94,6 +120,7 @@ public class Health : MonoBehaviour
     {
         if (hasShield)
         {
+            hasShield = false;
             return;
         }
 
@@ -117,5 +144,18 @@ public class Health : MonoBehaviour
     {
         CurrentHealth = Mathf.Min(CurrentHealth + amount, MaxHealth);
         OnCurrentHealthChanged.Invoke(CurrentHealth);
+    }
+
+    IEnumerator shieldCoro()
+    {
+        Debug.Log("meow");
+        _isShielding = true;
+        yield return new WaitForSeconds(_shieldCD);
+        while (signal.IsDisabled || signal.GetDirectNeighbours().Count == 0)
+        {
+            yield return null;
+        }
+        hasShield = true;
+        _isShielding = false;
     }
 }

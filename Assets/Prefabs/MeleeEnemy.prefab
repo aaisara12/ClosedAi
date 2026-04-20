@@ -574,9 +574,11 @@ MonoBehaviour:
       m_Calls: []
   CurrentHealth: 1
   MaxHealth: 1
-  hasShield: 0
   canRegen: 0
+  canShield: 1
+  _shieldCD: 1
   Shield: {fileID: 7497705256381744518}
+  hasShield: 1
   regenDelay: 5
   regenDuration: 2
 --- !u!114 &1296269336376926144
