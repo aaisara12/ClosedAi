@@ -46,3 +46,12 @@ MonoBehaviour:
   - sound: 10
     clip: {fileID: 8300000, guid: 0e82f6a27151fda4cbdc3ef4f98c5216, type: 3}
     mixerGroup: {fileID: 506481892653063019, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 11
+    clip: {fileID: 8300000, guid: 93d898dc7d7c7e6468c045ea602f808c, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 12
+    clip: {fileID: 8300000, guid: b39e806c402025840ae281bd5d80b60b, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 13
+    clip: {fileID: 8300000, guid: 0418174151e2aed4d82ad097947abb97, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
