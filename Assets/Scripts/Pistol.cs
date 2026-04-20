@@ -6,9 +6,12 @@ using UnityEngine;
 public class Pistol : MonoBehaviour
 {
     [SerializeField] private Transform _cameraTransform;
+    [SerializeField] private Transform _firePoint;
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private float _projectileSpeed = 40f;
     [SerializeField] private float _reloadTime = 1.5f;
+    [SerializeField] private float _maxRange = 200f;
+    [SerializeField] private LayerMask _aimMask = ~0;
 
     public event Action<bool> OnEquipChanged;
     public event Action OnFired;
@@ -58,9 +61,16 @@ public class Pistol : MonoBehaviour
         IsLoaded = false;
         OnFired?.Invoke();
 
-        GameObject proj = Instantiate(_projectilePrefab, _cameraTransform.position + _cameraTransform.forward * 0.8f, _cameraTransform.rotation);
+        Vector3 aimTarget = Physics.Raycast(_cameraTransform.position, _cameraTransform.forward, out RaycastHit hit, _maxRange, _aimMask)
+            ? hit.point
+            : _cameraTransform.position + _cameraTransform.forward * _maxRange;
+
+        Transform origin = _firePoint ?? _cameraTransform;
+        Vector3 dir = (aimTarget - origin.position).normalized;
+
+        GameObject proj = Instantiate(_projectilePrefab, origin.position, Quaternion.LookRotation(dir));
         if (proj.TryGetComponent(out Rigidbody rb))
-            rb.linearVelocity = _cameraTransform.forward * _projectileSpeed;
+            rb.linearVelocity = dir * _projectileSpeed;
 
         _reloadCoroutine = StartCoroutine(ReloadCoroutine());
     }
