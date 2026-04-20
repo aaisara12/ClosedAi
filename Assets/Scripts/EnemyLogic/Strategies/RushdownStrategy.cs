@@ -17,12 +17,12 @@ public class RushdownStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting Rushdown strategy");
+
         foreach (var a in _agents)
             a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
         foreach (var agent in _agents)
         {
-            Debug.Log("Starting Rushdown strategy");
-
             var nav = agent.GetComponent<NavMeshAgent>();
             if (nav == null) continue;
             _originalSpeeds[agent]      = nav.speed;

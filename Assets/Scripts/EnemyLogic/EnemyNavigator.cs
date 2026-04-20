@@ -13,7 +13,7 @@ public class EnemyNavigator : MonoBehaviour, IMovable
 
     public void Stop()
     {
-        _nav.ResetPath();
+        if (_nav.isOnNavMesh) _nav.ResetPath();
         _nav.velocity = Vector3.zero;
     }
 

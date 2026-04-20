@@ -26,7 +26,7 @@ public class SignalStatus : MonoBehaviour
 
     public void SetIcon(SignalIcon s)
     {
-        Debug.Log("Setting Icon?");
+        Debug.Log("Setting Icon");
         Debug.Log(iconMap.Map.Keys.Count);
         if (iconMap.Map.ContainsKey(s))
         {
