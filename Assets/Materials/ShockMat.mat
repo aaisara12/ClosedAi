@@ -147,7 +147,7 @@ Material:
     - _Layer3FadeDuration: 3
     - _Layer3FadeMax: 1
     - _Layer3FadeMin: 0.05
-    - _Layer3FadeMode: 1
+    - _Layer3FadeMode: 0
     - _Layer3FadeOffset: 0.667
     - _Layer3LightningFlashWidth: 0.1
     - _Layer3ScrollX: 0.02
@@ -171,10 +171,10 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 0.5474355, g: 0.3448291, b: 0.5943396, a: 0}
-    - _Layer1Color: {r: 0.6603774, g: 0.4765931, b: 0.4765931, a: 0}
-    - _Layer2Color: {r: 0.8113208, g: 0.54725885, b: 0.74263227, a: 0}
-    - _Layer3Color: {r: 0.6784314, g: 0, b: 0.6087997, a: 0}
+    - _FresnelColor: {r: 0.2999733, g: 0.5421587, b: 0.5943396, a: 0}
+    - _Layer1Color: {r: 0.22530258, g: 0.7830189, b: 0.36950102, a: 0}
+    - _Layer2Color: {r: 0.5807227, g: 0.8490566, b: 0.8334674, a: 0}
+    - _Layer3Color: {r: 0, g: 0.23037691, b: 0.6784314, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
