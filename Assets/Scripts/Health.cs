@@ -21,6 +21,7 @@ public class Health : MonoBehaviour
     public int CurrentHealth = 3;
     public int MaxHealth = 3;
     public bool hasShield = false;
+    public bool canRegen = false;
 
     [Header("Regen Settings")]
     [Tooltip("Seconds after last damage before regeneration begins.")]
@@ -47,6 +48,11 @@ public class Health : MonoBehaviour
         {
             RegenProgress = 0f;
             _regenActive  = false;
+            return;
+        }
+
+        if (canRegen == false)
+        {
             return;
         }
 
