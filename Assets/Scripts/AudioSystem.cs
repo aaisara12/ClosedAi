@@ -5,35 +5,27 @@ public class AudioSystem : MonoBehaviour
 {
     public enum Sound
     {
-        // Player
-        Player_Walking,
-        Player_Recall,
-        Player_Hurt,
-
-        // Slashes
-        Slash_Basic,
-        Slash_FireBasic,
-        Slash_FireCharged,
-        Slash_FireEruption,
-        Slash_IceBasic,
-        Slash_IceEmpowered,
-        Slash_LightningBasic,
-        Slash_LightningEmpowered,
-
-        // Throwing
-        Throw,
-        Bounce,
-        Basic_Flight,
-        Fire_Flight,
-        Ice_Flight,
-        Lightning_Flight
+        Dash,
+        EnemyDeath,
+        EnemyGun,
+        Grapple,
+        Pistol,
+        Reload,
+        Smoke,
+        Wallexit,
+        Wallenter,
+        Wallslide,
+        Music,
+        Sword,
+        EnemyAggressive,
+        EnemySuspicious,
     }
 
     public AudioLibrary library;
     public int initialPoolSize = 5;
     public float unusedLifetime = 10f;
 
-    static AudioSystem instance;
+    public static AudioSystem Instance;
 
     class PooledSource
     {
@@ -46,17 +38,23 @@ public class AudioSystem : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        instance = this;
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
         library.Init();
 
         for (int i = 0; i < initialPoolSize; i++)
             CreateSource();
+    }
+
+    void Start()
+    {
+        PlayLoop(Sound.Music);
     }
 
     void Update()
@@ -118,15 +116,15 @@ public class AudioSystem : MonoBehaviour
 
     public static void Play(Sound sound, float volume = 1f, float pitch = 1f)
     {
-        if (instance == null) return;
+        if (Instance == null) return;
 
-        if (!instance.library.TryGet(sound, out var entry))
+        if (!Instance.library.TryGet(sound, out var entry))
         {
             Debug.LogWarning($"No clip for {sound}");
             return;
         }
 
-        var pooled = instance.GetAvailable();
+        var pooled = Instance.GetAvailable();
         var src = pooled.source;
 
         src.clip = entry.clip;
@@ -145,15 +143,15 @@ public class AudioSystem : MonoBehaviour
 
     public static int PlayLoop(Sound sound, float volume = 1f, float pitch = 1f)
     {
-        if (instance == null) return 0;
+        if (Instance == null) return 0;
 
-        if (!instance.library.TryGet(sound, out var entry))
+        if (!Instance.library.TryGet(sound, out var entry))
         {
             Debug.LogWarning($"No clip for {sound}");
             return 0;
         }
 
-        var pooled = instance.GetAvailable();
+        var pooled = Instance.GetAvailable();
         var src = pooled.source;
 
         int id = src.GetInstanceID();
@@ -169,7 +167,7 @@ public class AudioSystem : MonoBehaviour
         src.Play();
 
         pooled.lastUsedTime = Time.time;
-        instance.activeLoops.Add(id, pooled);
+        Instance.activeLoops.Add(id, pooled);
         return id;
     }
 
@@ -177,15 +175,15 @@ public class AudioSystem : MonoBehaviour
 
     public static void StopLoop(int id)
     {
-        if (instance == null) return;
+        if (Instance == null) return;
 
-        if (!instance.activeLoops.TryGetValue(id, out var pooled))
+        if (!Instance.activeLoops.TryGetValue(id, out var pooled))
             return;
 
         pooled.source.Stop();
         pooled.source.loop = false;
         pooled.lastUsedTime = Time.time;
 
-        instance.activeLoops.Remove(id);
+        Instance.activeLoops.Remove(id);
     }
 }

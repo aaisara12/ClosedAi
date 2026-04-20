@@ -14,8 +14,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
   entries:
   - sound: 0
-    clip: {fileID: 8300000, guid: 1d1a8836ec05bd14dbd3abdd8d72e0a7, type: 3}
+    clip: {fileID: 8300000, guid: 23292659b85872e48b5dd7d590af170a, type: 3}
     mixerGroup: {fileID: 0}
-  - sound: 0
-    clip: {fileID: 8300000, guid: 1d1a8836ec05bd14dbd3abdd8d72e0a7, type: 3}
+  - sound: 1
+    clip: {fileID: 8300000, guid: bd96e3781a4a22945ba6bfc9a810e102, type: 3}
     mixerGroup: {fileID: 0}
+  - sound: 2
+    clip: {fileID: 8300000, guid: dc7b2d928c6bac3469b7bf3310b5c86c, type: 3}
+    mixerGroup: {fileID: 0}
+  - sound: 3
+    clip: {fileID: 8300000, guid: 3e4d9e15f0c9be84abdb009d47e45382, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 4
+    clip: {fileID: 8300000, guid: 8d9fb5f33e17dd84eb60b4ad74e84080, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 5
+    clip: {fileID: 8300000, guid: 0a3bbe80766a5a44294b8d4012a91276, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 6
+    clip: {fileID: 8300000, guid: 4eff3fcf8a264204a8c4fac8a25a11bb, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 7
+    clip: {fileID: 8300000, guid: 063723ff662d38947b46569bb33a77ea, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 8
+    clip: {fileID: 8300000, guid: 6dc9a74d529fbfe4caedd4affa5db837, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 9
+    clip: {fileID: 8300000, guid: 36bff4a1296a5db48bfcd8abbdaa73b8, type: 3}
+    mixerGroup: {fileID: 8784760917127885274, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}
+  - sound: 10
+    clip: {fileID: 8300000, guid: 0e82f6a27151fda4cbdc3ef4f98c5216, type: 3}
+    mixerGroup: {fileID: 506481892653063019, guid: 6f2f3455182737545bc3c171eca88abd, type: 2}

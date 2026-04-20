@@ -60,6 +60,7 @@ public abstract class EnemyAgent : MonoBehaviour
     private void Die()
     {
         Brain?.RemoveMember(this);
+        AudioSystem.Play(AudioSystem.Sound.EnemyDeath);
         Destroy(gameObject);
     }
 

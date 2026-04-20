@@ -103,18 +103,22 @@ public class WallRunController : MonoBehaviour
         return false;
     }
 
+    int audioSourceID = 0;
+
     private void EnterWallRun(Vector3 wallNormal, int side)
     {
         IsWallRunning = true;
         _player.CanMove = false;
         _wallNormal = wallNormal;
         _rb.useGravity = false;
+        AudioSystem.Play(AudioSystem.Sound.Wallenter);
 
         Vector3 v = _rb.linearVelocity;
         _rb.linearVelocity = new Vector3(v.x, 0f, v.z);
 
         _targetRoll = side * _cameraRollAngle;
         _targetLateralOffset = -side * _cameraWallOffset;
+        audioSourceID = AudioSystem.PlayLoop(AudioSystem.Sound.Wallslide);
     }
 
     private void ExitWallRun()
@@ -124,6 +128,8 @@ public class WallRunController : MonoBehaviour
         _rb.useGravity = true;
         _targetRoll = 0f;
         _targetLateralOffset = 0f;
+        AudioSystem.StopLoop(audioSourceID);
+        AudioSystem.Play(AudioSystem.Sound.Wallexit);
     }
 
     private void DoWallJump()

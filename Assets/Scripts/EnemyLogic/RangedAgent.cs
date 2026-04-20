@@ -58,6 +58,7 @@ public class RangedAgent : EnemyAgent, IMovable, IShooter
         float elapsed = 0f;
         while (elapsed < _burstDuration)
         {
+            AudioSystem.Play(AudioSystem.Sound.EnemyGun);
             ShootProjectile(_currentTarget);
             yield return new WaitForSeconds(_burstFireRate);
             elapsed += _burstFireRate;

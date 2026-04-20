@@ -79,6 +79,7 @@ public class PlayerAnimator : MonoBehaviour
     private void HandleFired()
     {
         if (_recoilCoroutine != null) StopCoroutine(_recoilCoroutine);
+        AudioSystem.Play(AudioSystem.Sound.Pistol);
         _recoilCoroutine = StartCoroutine(RecoilCoroutine());
     }
 
@@ -97,6 +98,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         _gunAnimator.SetFloat("ReloadSpeed", _reloadAnimDuration / _pistol.ReloadTime);
         _gunAnimator.Play("Reload");
+        AudioSystem.Play(AudioSystem.Sound.Reload);
     }
 
     private void HandleSwordAttacked() => StartCoroutine(SwordDipCoroutine());
@@ -144,6 +146,7 @@ public class PlayerAnimator : MonoBehaviour
     private IEnumerator SwordDipCoroutine()
     {
         if (_swordArm == null) yield break;
+        AudioSystem.Play(AudioSystem.Sound.Sword);
         Vector3 startPos = _swordArm.localPosition;
         Vector3 dipPos = _swordArmReadyPos + _hideOffset;
         yield return MoveArm(_swordArm, startPos, dipPos, _swordDipDuration / 2);

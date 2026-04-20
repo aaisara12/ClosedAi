@@ -55,6 +55,8 @@ public class DashController : MonoBehaviour
         _player.CanMove = false;
         _rb.useGravity = false;
 
+        AudioSystem.Play(AudioSystem.Sound.Dash);
+
         Vector3 dashDir = _cameraTransform.forward.normalized;
 
         // Pull the cast origin back so the sphere never starts inside a wall the player
