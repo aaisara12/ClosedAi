@@ -16,6 +16,8 @@ public class RushdownStrategy : Strategy
 
     public override void OnStart()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
         foreach (var agent in _agents)
         {
             Debug.Log("Starting Rushdown strategy");
@@ -27,14 +29,24 @@ public class RushdownStrategy : Strategy
         }
     }
 
+
+    private readonly float delta = 0.5f;
     public override void Tick(Vector3 playerPos, bool playerSpotted)
     {
         foreach (var agent in _agents)
-            (agent as IMovable)?.MoveTo(playerPos);
+        {
+            var movable = agent as IMovable;
+            if (movable == null)
+                return;
+            else if ((playerPos - movable.GetDestination()).sqrMagnitude > delta)
+                movable.MoveTo(playerPos);
+        }
     }
 
     public override void End()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
         foreach (var agent in _agents)
         {
             (agent as IMovable)?.Stop();

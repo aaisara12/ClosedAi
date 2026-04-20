@@ -3,6 +3,7 @@ using UnityEngine;
 public interface IMovable
 {
     void MoveTo(Vector3 position);
+    Vector3 GetDestination();
     void Stop();
     bool HasReached { get; }
 }

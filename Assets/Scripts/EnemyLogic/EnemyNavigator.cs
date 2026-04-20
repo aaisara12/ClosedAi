@@ -9,6 +9,7 @@ public class EnemyNavigator : MonoBehaviour, IMovable
     private void Awake() => _nav = GetComponent<NavMeshAgent>();
 
     public void MoveTo(Vector3 position) => _nav.SetDestination(position);
+    public Vector3 GetDestination() => _nav.destination;
 
     public void Stop()
     {

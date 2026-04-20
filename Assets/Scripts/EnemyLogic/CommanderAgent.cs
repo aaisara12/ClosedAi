@@ -31,6 +31,7 @@ public class CommanderAgent : EnemyAgent, IMovable, IShooter, IShieldProvider
     }
 
     public void MoveTo(Vector3 position) => _nav.MoveTo(position);
+    public Vector3 GetDestination() => _nav.GetDestination();
     public void Stop() => _nav.Stop();
     public bool HasReached => _nav.HasReached;
 
