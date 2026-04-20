@@ -13,7 +13,7 @@ public class SignalManager : MonoBehaviour
     [Header("Connection Settings")]
     [SerializeField] private int maxConnections = 4;
     [SerializeField] private float connectionRadius = 15f;
-    [SerializeField] private float reconnectDelay = 3f;     // seconds before re-trying a broken link
+    [SerializeField] private float reconnectDelay = 4.5f;     // seconds before re-trying a broken link
     [SerializeField] private float disabledDuration = 8f;   // seconds disabled when fully isolated
 
     [Header("Signal Prefab")]
@@ -124,7 +124,7 @@ public class SignalManager : MonoBehaviour
         OnConnectionChanged?.Invoke(signal, false);
 
         // Schedule a reconnect attempt toward the broken partner
-        if (other != null)
+        if (other != null && other.enabled)
             StartCoroutine(ScheduleReconnect(other));
 
         // Check for full isolation
