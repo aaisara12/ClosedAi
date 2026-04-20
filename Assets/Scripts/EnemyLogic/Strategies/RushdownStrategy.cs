@@ -13,6 +13,7 @@ public class RushdownStrategy : Strategy
     private const float SpeedMultiplier = 2f;
 
     private readonly Dictionary<EnemyAgent, float> _originalSpeeds = new();
+    private readonly Dictionary<EnemyAgent, bool>  _originalAutoBraking = new();
 
     public override void OnStart()
     {
@@ -24,8 +25,10 @@ public class RushdownStrategy : Strategy
 
             var nav = agent.GetComponent<NavMeshAgent>();
             if (nav == null) continue;
-            _originalSpeeds[agent] = nav.speed;
-            nav.speed *= SpeedMultiplier;
+            _originalSpeeds[agent]      = nav.speed;
+            _originalAutoBraking[agent] = nav.autoBraking;
+            nav.speed      *= SpeedMultiplier;
+            nav.autoBraking = false;
         }
     }
 
@@ -51,8 +54,11 @@ public class RushdownStrategy : Strategy
         {
             (agent as IMovable)?.Stop();
             var nav = agent.GetComponent<NavMeshAgent>();
-            if (nav != null && _originalSpeeds.TryGetValue(agent, out float original))
+            if (nav == null) continue;
+            if (_originalSpeeds.TryGetValue(agent, out float original))
                 nav.speed = original;
+            if (_originalAutoBraking.TryGetValue(agent, out bool braking))
+                nav.autoBraking = braking;
         }
     }
 }
