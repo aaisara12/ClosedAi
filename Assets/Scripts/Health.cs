@@ -22,12 +22,11 @@ public class Health : MonoBehaviour
     public int CurrentHealth = 3;
     public int MaxHealth = 3;
     public bool canRegen = false;
-
-    [SerializeField] public bool canShield = false;
+    
     [SerializeField] private float _shieldCD = .5f;
     public GameObject Shield;
     public bool hasShield = false;
-    private bool _isShielding = false;
+    private bool _isRunningShieldRegenCoroutine = false;
     
     [Header("Regen Settings")]
     [Tooltip("Seconds after last damage before regeneration begins.")]
@@ -52,9 +51,8 @@ public class Health : MonoBehaviour
     private void Start()
     {
         signal = GetComponentInChildren<SignalManager>();
-        if (canShield && signal != null)
+        if (signal != null)
         {
-            hasShield = true;
             signal.OnFullyIsolated += HandleFullyIsolated;
         }
     }
@@ -72,7 +70,7 @@ public class Health : MonoBehaviour
             Shield.SetActive(hasShield);
         }
 
-        if (canShield && !_isShielding && !hasShield)
+        if (!_isRunningShieldRegenCoroutine && !hasShield)
         {
             StartCoroutine(shieldCoro());
         }
@@ -120,7 +118,6 @@ public class Health : MonoBehaviour
     {
         if (hasShield)
         {
-            hasShield = false;
             return;
         }
 
@@ -149,13 +146,13 @@ public class Health : MonoBehaviour
     IEnumerator shieldCoro()
     {
         Debug.Log("meow");
-        _isShielding = true;
+        _isRunningShieldRegenCoroutine = true;
         yield return new WaitForSeconds(_shieldCD);
         while (signal.IsDisabled || signal.GetDirectNeighbours().Count == 0)
         {
             yield return null;
         }
         hasShield = true;
-        _isShielding = false;
+        _isRunningShieldRegenCoroutine = false;
     }
 }
