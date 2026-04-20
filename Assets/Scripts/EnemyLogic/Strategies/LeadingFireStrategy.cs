@@ -20,6 +20,7 @@ public class LeadingFireStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting leading fire strategy");
         _lightLeader = _agents[0];
         _heavyLeader = _agents[1];
         _losMask = ~LayerMask.GetMask("Enemy");

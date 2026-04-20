@@ -22,6 +22,8 @@ public class CoveringFireStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting covering fire strategy");
+
         _melee        = _agents.First(a => a.Type == EnemyType.Melee);
         _ranged       = _agents.Where(a => a.Type == EnemyType.Ranged).ToList();
         _prevMeleePos = _melee.transform.position;

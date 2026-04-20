@@ -25,6 +25,11 @@ public class PhalanxStrategy : Strategy
 
     public override void OnStart()
     {
+        Debug.Log("Starting Phalanx strategy");
+
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Square);
+
         _ranged = _agents.First(a => a.Type == EnemyType.Ranged);
         _melee  = _agents.Where(a => a.Type == EnemyType.Melee).ToList();
 
@@ -88,6 +93,8 @@ public class PhalanxStrategy : Strategy
 
     public override void End()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
         foreach (var a in _agents)
             (a as IMovable)?.Stop();
     }

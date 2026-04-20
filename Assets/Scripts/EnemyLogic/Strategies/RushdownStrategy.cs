@@ -18,6 +18,8 @@ public class RushdownStrategy : Strategy
     {
         foreach (var agent in _agents)
         {
+            Debug.Log("Starting Rushdown strategy");
+
             var nav = agent.GetComponent<NavMeshAgent>();
             if (nav == null) continue;
             _originalSpeeds[agent] = nav.speed;

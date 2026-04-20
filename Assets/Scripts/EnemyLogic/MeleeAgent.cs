@@ -19,6 +19,10 @@ public class MeleeAgent : EnemyAgent, IMovable
     [SerializeField] private float _overshootAngle = 20f;
     [SerializeField] private float _recoveryDuration = 0.1f;
 
+    [Header("Attack Lunge")]
+    [SerializeField] private float _lungeDistance = 2f;
+    [SerializeField] private AnimationCurve _lungeCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+
     public override EnemyType Type => EnemyType.Melee;
     public float CooldownMultiplier { get; set; } = 1f;
 
@@ -71,15 +75,22 @@ public class MeleeAgent : EnemyAgent, IMovable
         angle = -_windupAngle;
 
         // Spin: full 360 plus overshoot, box hit detection active
+        // Spin: full 360 plus overshoot, box hit detection active + forward lunge
         float spinFrom = angle;
         float spinTo   = 360f + _overshootAngle;
         elapsed = 0f;
         var hitIds = new HashSet<int>();
+        Vector3 lungeStart = transform.position;
+        Vector3 lungeEnd   = transform.position + transform.forward * _lungeDistance;
         while (elapsed < _spinDuration)
         {
             elapsed += Time.deltaTime;
-            angle = Mathf.Lerp(spinFrom, spinTo, Mathf.SmoothStep(0f, 1f, elapsed / _spinDuration));
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / _spinDuration);
+            angle = Mathf.Lerp(spinFrom, spinTo, t);
             ApplySpin(baseRot, angle);
+
+            // Move forward along the lunge arc
+            transform.position = Vector3.Lerp(lungeStart, lungeEnd, _lungeCurve.Evaluate(t));
 
             Collider[] hits = Physics.OverlapBox(transform.position, _hitBoxHalfExtents, Quaternion.identity, _hitMask);
             foreach (Collider col in hits)
