@@ -16,6 +16,8 @@ public class RushdownStrategy : Strategy
 
     public override void OnStart()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.SetIcon(SignalIcon.Triangle);
         foreach (var agent in _agents)
         {
             Debug.Log("Starting Rushdown strategy");
@@ -35,6 +37,8 @@ public class RushdownStrategy : Strategy
 
     public override void End()
     {
+        foreach (var a in _agents)
+            a.GetComponentInChildren<SignalStatus>()?.ResetIcon();
         foreach (var agent in _agents)
         {
             (agent as IMovable)?.Stop();
