@@ -16,3 +16,6 @@ MonoBehaviour:
   - sound: 0
     clip: {fileID: 8300000, guid: 1d1a8836ec05bd14dbd3abdd8d72e0a7, type: 3}
     mixerGroup: {fileID: 0}
+  - sound: 0
+    clip: {fileID: 8300000, guid: 1d1a8836ec05bd14dbd3abdd8d72e0a7, type: 3}
+    mixerGroup: {fileID: 0}
