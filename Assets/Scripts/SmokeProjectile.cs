@@ -7,13 +7,15 @@ public class SmokeProjectile : MonoBehaviour
 
     private bool _detonated;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+            return;
         if (_detonated) return;
         _detonated = true;
 
         if (_smokeAreaPrefab != null)
-            Instantiate(_smokeAreaPrefab, collision.contacts[0].point, Quaternion.identity);
+            Instantiate(_smokeAreaPrefab, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }

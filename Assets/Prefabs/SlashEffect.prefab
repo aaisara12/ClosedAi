@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7274610364505257354}
   - component: {fileID: 9117956304121988776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SlashEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

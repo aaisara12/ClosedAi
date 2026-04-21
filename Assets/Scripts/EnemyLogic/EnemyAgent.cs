@@ -49,7 +49,7 @@ public abstract class EnemyAgent : MonoBehaviour
         if (this is IMovable movable) movable.Stop();
 
         var detector = GetComponent<PlayerDetector>();
-        var model = GetComponent<MeshRenderer>();
+        var model = GetComponentInChildren<MeshRenderer>();
         float elapsed = 0f;
 
         Quaternion startRot = model.transform.localRotation;

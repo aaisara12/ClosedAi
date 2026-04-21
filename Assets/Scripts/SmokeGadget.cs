@@ -9,6 +9,9 @@ public class SmokeGadget : MonoBehaviour
     [SerializeField] private float _throwArcForce = 5f;
     [SerializeField] private float _cooldown = 8f;
 
+    public float CooldownRemaining => Mathf.Max(0f, _nextThrowTime - Time.time);
+    public float CooldownTotal => _cooldown;
+
     private ClosedAi _input;
     private float _nextThrowTime;
 

@@ -356,6 +356,9 @@ MonoBehaviour:
   library: {fileID: 11400000, guid: 9aff9cf3ddfcde340b5dcba82221a48e, type: 2}
   initialPoolSize: 5
   unusedLifetime: 10
+  _mixer: {fileID: 0}
+  _lowpassOn: 0.3
+  _lowpassOff: 0.7
 --- !u!1 &439685250
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +505,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &839073189
 RectTransform:

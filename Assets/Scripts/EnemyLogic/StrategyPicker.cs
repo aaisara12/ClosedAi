@@ -7,12 +7,12 @@ public static class StrategyPicker
     // Add new strategies here, ordered by priority (highest first preferred)
     private static readonly (int priority, Func<Strategy> create)[] _registry =
     {
-        (15, () => new ChaseDownStrategy()),
+        (18, () => new RushdownStrategy()),
         (14, () => new PhalanxStrategy()),
-        (12, () => new LeadingFireStrategy()),
-        (11, () => new CoveringFireStrategy()),
+        (12, () => new CoveringFireStrategy()),
+        (11, () => new ChaseDownStrategy()),
         (10, () => new SuppressiveFireStrategy()),
-        (9,  () => new RushdownStrategy()),
+        (9, () => new LeadingFireStrategy()),
         (8,  () => new CorneringAttackStrategy()),
         (1,  () => new CommanderStrategy()),
     };
