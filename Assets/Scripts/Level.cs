@@ -11,9 +11,16 @@ public class Level : MonoBehaviour
     [SerializeField] private UnityEvent OnLevelWon;
     [SerializeField] private UnityEvent OnLevelRestarted;
     [SerializeField] private UnityEvent OnLevelLost;
-    
+    [SerializeField] private float _timeLimit = 0f;
+
     private bool isLevelWon;
-    
+
+    private void Start()
+    {
+        if (_timeLimit > 0f && GameManager.Instance != null)
+            GameManager.Instance.StartCountdown(_timeLimit, this);
+    }
+
     public void Update()
     {
         if (isLevelWon == false && EnemyCounter.EnemyCount == 0)

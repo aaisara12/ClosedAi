@@ -16,6 +16,9 @@ public class DashController : MonoBehaviour
     [SerializeField] private LayerMask _dashHitMask = ~0;
     [SerializeField] private float _dashCooldown = 1f;
 
+    public float CooldownRemaining => Mathf.Max(0f, _nextDashTime - Time.time);
+    public float CooldownTotal => _dashCooldown;
+
     private PlayerController _player;
     private Rigidbody _rb;
     private CameraController _camera;

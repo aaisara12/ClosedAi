@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Signal
   - Enemy
+  - Energy
   layers:
   - Default
   - TransparentFX

@@ -12,6 +12,7 @@ public class Pistol : MonoBehaviour
     [SerializeField] private float _reloadTime = 1.5f;
     [SerializeField] private float _maxRange = 200f;
     [SerializeField] private LayerMask _aimMask = ~0;
+    [SerializeField] private int _maxAmmo = 10;
 
     public event Action<bool> OnEquipChanged;
     public event Action OnFired;
@@ -20,11 +21,16 @@ public class Pistol : MonoBehaviour
     public bool IsEquipped { get; private set; }
     public bool IsLoaded { get; private set; } = true;
     public float ReloadTime => _reloadTime;
+    public int CurrentAmmo { get; private set; }
 
     private ClosedAi _input;
     private Coroutine _reloadCoroutine;
 
-    private void Awake() => _input = new ClosedAi();
+    private void Awake()
+    {
+        _input = new ClosedAi();
+        CurrentAmmo = _maxAmmo;
+    }
 
     private void OnEnable() => _input.Player.Enable();
     private void OnDisable() => _input.Player.Disable();
@@ -34,8 +40,13 @@ public class Pistol : MonoBehaviour
         if (_input.Player.Swap.WasPressedThisFrame())
             ToggleEquip();
 
-        if (IsEquipped && IsLoaded && _input.Player.Fire.WasPressedThisFrame())
-            Shoot();
+        if (IsEquipped && _input.Player.Fire.WasPressedThisFrame())
+        {
+            if (IsLoaded)
+                Shoot();
+            else if (CurrentAmmo > 0 && _reloadCoroutine == null)
+                _reloadCoroutine = StartCoroutine(ReloadCoroutine());
+        }
     }
 
     private void ToggleEquip()
@@ -48,7 +59,7 @@ public class Pistol : MonoBehaviour
             StopCoroutine(_reloadCoroutine);
             _reloadCoroutine = null;
         }
-        else if (IsEquipped && !IsLoaded)
+        else if (IsEquipped && !IsLoaded && CurrentAmmo > 0)
         {
             _reloadCoroutine = StartCoroutine(ReloadCoroutine());
         }
@@ -58,6 +69,7 @@ public class Pistol : MonoBehaviour
     {
         if (_projectilePrefab == null) return;
 
+        CurrentAmmo--;
         IsLoaded = false;
         OnFired?.Invoke();
 
@@ -72,7 +84,8 @@ public class Pistol : MonoBehaviour
         if (proj.TryGetComponent(out Rigidbody rb))
             rb.linearVelocity = dir * _projectileSpeed;
 
-        _reloadCoroutine = StartCoroutine(ReloadCoroutine());
+        if (CurrentAmmo > 0)
+            _reloadCoroutine = StartCoroutine(ReloadCoroutine());
     }
 
     private IEnumerator ReloadCoroutine()
@@ -81,5 +94,15 @@ public class Pistol : MonoBehaviour
         yield return new WaitForSeconds(_reloadTime);
         IsLoaded = true;
         _reloadCoroutine = null;
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log("Colliding with " + collision.gameObject.name);
+        if (!collision.gameObject.CompareTag("Energy")) return;
+        CurrentAmmo = Mathf.Min(CurrentAmmo + 2, _maxAmmo);
+        Destroy(collision.gameObject);
+        if (IsEquipped && !IsLoaded && _reloadCoroutine == null)
+            _reloadCoroutine = StartCoroutine(ReloadCoroutine());
     }
 }
