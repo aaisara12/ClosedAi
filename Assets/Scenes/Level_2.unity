@@ -4277,7 +4277,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelWon.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelLost.m_PersistentCalls.m_Calls.Array.size

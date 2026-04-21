@@ -15,12 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Test Scenes/MingTest.unity
-    guid: c0c504429eda46d4a95ac198dd1a6b54
-  - enabled: 1
-    path: Assets/Scenes/Test Scenes/KelvinTest_models.unity
-    guid: 28bca1ac4a787db479d1a1334f72bd91
-  - enabled: 1
     path: Assets/Scenes/CoreSystems.unity
     guid: 3b2cbc1df7b9a4b8cb56df6161461352
   - enabled: 1

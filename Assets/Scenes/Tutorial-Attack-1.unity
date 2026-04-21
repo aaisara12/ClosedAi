@@ -1940,6 +1940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level
       objectReference: {fileID: 0}
+    - target: {fileID: 6375271717152137501, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
+      propertyPath: steps.Array.data[1].action.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: e221c7c2c2aae47cbbff16205a13cfdc, type: 2}
     - target: {fileID: 7390972942998458887, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.30459
