@@ -22,6 +22,9 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField] private Image _smokeCooldownOverlay;
     [SerializeField] private TMP_Text _smokeCooldownText;
 
+    [Header("Enemies")]
+    [SerializeField] private TMP_Text _enemyCountText;
+
     private void Update()
     {
         if (GameManager.Instance == null) return;
@@ -32,6 +35,8 @@ public class PlayerUIManager : MonoBehaviour
             GameManager.Instance.DashCooldownRemaining, GameManager.Instance.DashCooldownTotal);
         UpdateCooldownUI(_smokeCooldownOverlay, _smokeCooldownText,
             GameManager.Instance.SmokeCooldownRemaining, GameManager.Instance.SmokeCooldownTotal);
+        if (_enemyCountText != null)
+            _enemyCountText.text = GameManager.Instance.EnemyCount.ToString();
     }
 
     private void UpdateWeaponUI()
@@ -51,7 +56,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (_ammoText == null) return;
         int loaded = GameManager.Instance.PistolLoaded ? 1 : 0;
-        _ammoText.text = $"{loaded}/{GameManager.Instance.PistolAmmo}";
+        _ammoText.text = $"{loaded}/{GameManager.Instance.PistolAmmo - loaded}";
     }
 
     private void UpdateCooldownUI(Image overlay, TMP_Text label, float remaining, float total)
