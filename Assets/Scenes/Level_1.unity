@@ -14287,7 +14287,7 @@ PrefabInstance:
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelLost.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: e221c7c2c2aae47cbbff16205a13cfdc, type: 2}
+      objectReference: {fileID: 11400000, guid: a68cad69ab8fe44eba9184bcc0aa241e, type: 2}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelLost.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -14303,7 +14303,7 @@ PrefabInstance:
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelRestarted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: e221c7c2c2aae47cbbff16205a13cfdc, type: 2}
+      objectReference: {fileID: 11400000, guid: a68cad69ab8fe44eba9184bcc0aa241e, type: 2}
     - target: {fileID: 3166084796860552686, guid: c2795cce7b2f546b7942cac56abaa487, type: 3}
       propertyPath: OnLevelRestarted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
