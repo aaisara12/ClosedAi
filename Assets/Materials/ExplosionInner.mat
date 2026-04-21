@@ -112,7 +112,7 @@ Material:
     - _DstBlendAlpha: 0
     - _Duration: 2
     - _EdgeSoftness: 0.15
-    - _EmissiveBoost: 10
+    - _EmissiveBoost: 1.77
     - _EnvironmentReflections: 1
     - _FresnelPower: 1.5
     - _GlossMapScale: 0
