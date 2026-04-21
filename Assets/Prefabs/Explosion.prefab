@@ -105,12 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b689d4b4c58410aaae790625f8d869f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ExplosionEffect
-  duration: 1
+  duration: 0.5
   maxScale: 7
   scaleDuration: 0.1
   scaleEase: 33
   meshRenderer: {fileID: 2128014227023508137}
-  innerCircle: {fileID: 4237960228297666589}
 --- !u!114 &3798815924349300716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +204,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ffb8b1c1fd204da9b07e5524ecb712c, type: 2}
+  - {fileID: 2100000, guid: 963b0f1d731adad4d9853397ce7b2f04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

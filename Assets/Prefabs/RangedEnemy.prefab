@@ -362,6 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5faa6a428bbc95a42a7839a2adfa0c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedAgent
+  lootDrop: {fileID: 5331183380139875943, guid: 4c8e0a50e4e51e64eb70ef6ef4b08f05, type: 3}
   _patrolRadius: 3
   _patrolPauseDuration: 1.5
   _patrolScanDuration: 2

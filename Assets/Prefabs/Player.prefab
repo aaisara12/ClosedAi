@@ -7481,7 +7481,7 @@ MonoBehaviour:
   _aimMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  _maxAmmo: 10
+  _maxAmmo: 2
 --- !u!114 &4504657917953737247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7498,7 +7498,7 @@ MonoBehaviour:
   _smokePrefab: {fileID: 8427272901540562664, guid: fa1e2f00628720a4684490e36a5ae58b, type: 3}
   _throwForce: 18
   _throwArcForce: 5
-  _cooldown: 5
+  _cooldown: 12
 --- !u!114 &4875765925901160926
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public abstract class EnemyAgent : MonoBehaviour
 {
+    [SerializeField] GameObject lootDrop;
+
     [Header("Patrol")]
     [SerializeField] private float _patrolRadius = 8f;
     [SerializeField] private float _patrolPauseDuration = 1.5f;
@@ -80,6 +82,7 @@ public abstract class EnemyAgent : MonoBehaviour
     {
         Brain?.RemoveMember(this);
         AudioSystem.Play(AudioSystem.Sound.EnemyDeath);
+        if (lootDrop != null) Instantiate(lootDrop, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 
