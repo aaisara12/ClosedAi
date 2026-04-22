@@ -8,7 +8,9 @@ public class GrappleController : MonoBehaviour
     [SerializeField] private float _hookTravelSpeed = 40f;
     [SerializeField] private float _pullSpeed = 18f;
     [SerializeField] private float _arriveDistance = 1.8f;
-    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private Transform _ropeOrigin;
+    [SerializeField] private GameObject _ropeCylinder;
+    [SerializeField] private float _ropeRadius = 0.04f;
     [SerializeField] private LayerMask _grappleMask = ~0;
 
     private PlayerController _player;
@@ -41,7 +43,7 @@ public class GrappleController : MonoBehaviour
         if (_hookTraveling)
             AdvanceHook();
 
-        UpdateLine();
+        UpdateRope();
     }
 
     private void FixedUpdate()
@@ -74,11 +76,8 @@ public class GrappleController : MonoBehaviour
             _rb.useGravity = false;
         }
 
-        if (_lineRenderer != null)
-        {
-            _lineRenderer.enabled = true;
-            _lineRenderer.positionCount = 2;
-        }
+        if (_ropeCylinder != null)
+            _ropeCylinder.SetActive(true);
     }
 
     private void AdvanceHook()
@@ -101,13 +100,11 @@ public class GrappleController : MonoBehaviour
         _hookTraveling = false;
         _rb.useGravity = true;
 
-        if (_lineRenderer != null) _lineRenderer.enabled = false;
+        SetRopeActive(false);
 
         // Attempt mantle; if it fails, restore movement so player doesn't get stuck
         if (!_mantler.TryMantle())
-        {
             _player.CanMove = true;
-        }
     }
 
     private void Cancel(bool preserveMomentum)
@@ -120,13 +117,25 @@ public class GrappleController : MonoBehaviour
         if (!preserveMomentum)
             _rb.linearVelocity = Vector3.zero;
 
-        if (_lineRenderer != null) _lineRenderer.enabled = false;
+        SetRopeActive(false);
     }
 
-    private void UpdateLine()
+    private void UpdateRope()
     {
-        if (_lineRenderer == null || !_isActive) return;
-        _lineRenderer.SetPosition(0, transform.position);
-        _lineRenderer.SetPosition(1, _hookPos);
+        if (_ropeCylinder == null || !_isActive) return;
+
+        Vector3 origin = _ropeOrigin != null ? _ropeOrigin.position : transform.position;
+        Vector3 midpoint = (origin + _hookPos) * 0.5f;
+        float length = Vector3.Distance(origin, _hookPos);
+
+        _ropeCylinder.transform.position = midpoint;
+        _ropeCylinder.transform.rotation = Quaternion.LookRotation(_hookPos - origin);
+        _ropeCylinder.transform.localScale = new Vector3(_ropeRadius, _ropeRadius, length);
+    }
+
+    private void SetRopeActive(bool active)
+    {
+        if (_ropeCylinder != null)
+            _ropeCylinder.SetActive(active);
     }
 }
